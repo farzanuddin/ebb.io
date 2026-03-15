@@ -1,5 +1,4 @@
-export const AUTH_KEY =
-  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjMTJjMmRmNTVhZGVlZTYxNzk1NDBjMmI5MzlhNmMyNCIsInN1YiI6IjY1YWZjZGM3YmQ1ODhiMDBhZDk2MzFiNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.GnVtIe2UaNEW6gk0hptaOab1nsmkdfKK9eSAnwPTayI";
+export const AUTH_KEY = import.meta.env.VITE_TMDB_AUTH_KEY || "";
 
 export const URL_BASE = "https://api.themoviedb.org/3";
 export const IMAGE_URL_BASE = "https://image.tmdb.org/t/p/original";

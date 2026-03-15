@@ -5,6 +5,10 @@ const cache = {};
 
 export const getDataFromAPI = async (endpoint, query = "", page = 1) => {
   try {
+    if (!AUTH_KEY) {
+      throw new Error("Missing VITE_TMDB_AUTH_KEY environment variable.");
+    }
+
     const fullEndpoint = `${endpoint}${query && `?query=${query}`}${page > 1 ? `?page=${page}` : ""}`;
 
     if (cache[fullEndpoint]) {
