@@ -24,6 +24,11 @@ export const DASHBOARD_SECTIONS = [
     title: "Recently Released",
     endpoint: "/movie/now_playing",
   },
+  {
+    key: "topRated",
+    title: "Top Rated",
+    endpoint: "/movie/top_rated",
+  },
 ];
 
 export const FEATURED_COLLECTION = {

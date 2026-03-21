@@ -71,12 +71,16 @@ const App = () => {
               items: staticContinueWatching.filter(Boolean),
             };
           }
+
+          const limit =
+            section.key === "recentlyReleased" || section.key === "topRated" ? 10 : 6;
+
           return {
             ...section,
             items:
               sectionResponses[index]?.results
                 ?.filter((movie) => movie.backdrop_path || movie.poster_path)
-                ?.slice(0, 6) || [],
+                ?.slice(0, limit) || [],
           };
         });
 
@@ -437,7 +441,8 @@ const SearchOverlay = styled.div`
 `;
 
 const ContentStack = styled.div`
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 2rem;
   min-height: 0;
   overflow-y: auto;

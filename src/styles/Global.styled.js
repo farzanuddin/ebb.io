@@ -20,6 +20,7 @@ export const GlobalStyles = styled.createGlobalStyle`
     font-family: ${({ theme }) => theme.fonts.body};
     font-size: 1.6rem;
     min-height: 100vh;
+    overflow: hidden;
     padding: 0 0;
     background:
       radial-gradient(circle at top, rgba(31, 127, 214, 0.35) 0%, rgba(31, 127, 214, 0) 30%),

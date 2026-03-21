@@ -77,6 +77,9 @@ const Card = styled.button`
   padding: 0;
   border-radius: ${({ theme }) => theme.radii.xl};
   overflow: visible;
+  /* Fix the total card height for continue-watching cards so they don't grow
+     with very wide viewports */
+  height: ${({ $showProgress }) => ($showProgress ? "12rem" : "auto")};
   background: rgba(8, 34, 51, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: ${({ theme }) => theme.shadow.soft};
@@ -92,7 +95,7 @@ const Card = styled.button`
 
 const Poster = styled.div`
   position: relative;
-  height: ${({ $showProgress }) => ($showProgress ? "12.6rem" : "14rem")};
+  height: ${({ $showProgress, $fullArt }) => ($fullArt ? "100%" : $showProgress ? "12.6rem" : "14rem")};
   background-color: ${({ theme }) => theme.surface.elevated};
   background-position: center;
   background-size: cover;
@@ -114,6 +117,26 @@ const RatingBadge = styled.span`
   color: ${({ theme }) => theme.misc.gold};
   font-size: 1.15rem;
   font-weight: 700;
+`;
+
+const FullArtOverlay = styled.div`
+  position: absolute;
+  left: 1.4rem;
+  right: 1.4rem;
+  bottom: 1.4rem;
+  color: ${({ theme }) => theme.misc.white};
+  text-shadow: 0 6px 24px rgba(3, 19, 31, 0.6);
+`;
+
+const FullArtTitle = styled.p`
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 0.4rem;
+`;
+
+const FullArtMeta = styled.p`
+  font-size: 1.15rem;
+  color: ${({ theme }) => theme.text.tertiary};
 `;
 
 const PosterOverlay = styled.div`
