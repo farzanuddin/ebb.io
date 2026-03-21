@@ -1,22 +1,41 @@
 export const theme = {
-  background: "#1D1D29",
-  section: {
-    background: "#222432",
-    active: "#2D2F3D",
+  background: "#041826",
+  surface: {
+    base: "#082233",
+    elevated: "#0c2d42",
+    muted: "#113b53",
   },
   text: {
-    primary: "#DCDBDE",
-    secondary: "#7F8599",
-    active: "#48A0F8",
+    primary: "#e8f6ff",
+    secondary: "#b7d8e9",
+    tertiary: "#7faec4",
+    muted: "#5e8aa0",
   },
-  button: {
-    active: "#5CA2A1",
-    inactive: "#2A2C3D",
+  accent: {
+    strong: "#16b6d9",
+    soft: "#1f7fd6",
   },
   misc: {
-    white: "#DCDBDE",
-    grey: "#7F8599",
-    yellow: "#DBAD41",
-    blue: "#48A0F8"
+    white: "#ffffff",
+    grey: "#7faec4",
+    gold: "#ffbd66",
+    blue: "#66d7ff",
+  },
+  shadow: {
+    panel: "0 28px 60px rgba(6, 6, 14, 0.42)",
+    soft: "0 18px 32px rgba(8, 8, 17, 0.28)",
+  },
+  radii: {
+    pill: "999px",
+    circle: "50%",
+    sm: "0.9rem",
+    md: "1rem",
+    lg: "1.1rem",
+    xl: "1.4rem",
+    xxl: "2.1rem",
+  },
+  fonts: {
+    body: '"Manrope", sans-serif',
+    display: '"Syne", sans-serif',
   },
 };

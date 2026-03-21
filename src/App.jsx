@@ -1,90 +1,439 @@
-import { useState, useEffect } from "react";
+import { startTransition, useDeferredValue, useEffect, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
-import Drawer from "react-modern-drawer";
-import "react-modern-drawer/dist/index.css";
-import { LeftSideMenu } from "./components/LeftSideMenu";
-import { RightSideMenu } from "./components/RightSideMenu";
-import { Content } from "./components/Content";
-import { Header } from "./components/Header";
-import { Footer } from "./components/Footer";
+import { LoadingOutlined, WarningOutlined } from "@ant-design/icons";
+import { getMovieDetails, getMoviesWithGenres, searchMovies } from "./api";
+import {
+  APP_COPY,
+  DASHBOARD_SECTIONS,
+  FEATURED_COLLECTION,
+  SEARCH_MIN_CHARACTERS,
+  SIDEBAR_LIBRARY_LINKS,
+  SIDEBAR_PRIMARY_LINKS,
+} from "./constants";
+import {
+  DashboardSidebar,
+  HeroBanner,
+  MediaShelf,
+  MovieDetailsDrawer,
+  SearchResultsPanel,
+  TopBar,
+} from "./components";
 import { GlobalStyles } from "./styles/Global.styled";
 import { theme } from "./styles/theme";
 
 const App = () => {
-  const [activeFilter, setActiveFilter] = useState("now_playing");
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [isSecondDrawerOpen, setIsSecondDrawerOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
+  const [featuredMovie, setFeaturedMovie] = useState(null);
+  const [shelves, setShelves] = useState([]);
+  const [status, setStatus] = useState({ loading: true, error: "" });
+  const [searchValue, setSearchValue] = useState("");
+  const deferredSearchValue = useDeferredValue(searchValue);
+  const [searchState, setSearchState] = useState({ loading: false, error: "", results: [] });
+  const [drawerState, setDrawerState] = useState({
+    isOpen: false,
+    isLoading: false,
+    error: "",
+    movie: null,
+  });
 
-  const handleDrawerOpen = (drawerType) => {
-    if (drawerType === "first") {
-      setIsDrawerOpen(!isDrawerOpen);
-    } else if (drawerType === "second") {
-      setIsSecondDrawerOpen(!isSecondDrawerOpen);
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadDashboard = async () => {
+      try {
+        setStatus({ loading: true, error: "" });
+
+        // Fetch featured and dashboard sections in parallel
+        const [featuredResponse, ...sectionResponses] = await Promise.all([
+          getMoviesWithGenres(FEATURED_COLLECTION.endpoint),
+          ...DASHBOARD_SECTIONS.map((section) => getMoviesWithGenres(section.endpoint)),
+        ]);
+
+        // Fetch static movies for Continue Watching by ID
+        const staticContinueWatchingIds = [20526, 673, 68734, 76341];
+        const staticContinueWatching = await Promise.all(
+          staticContinueWatchingIds.map((id) => getMovieDetails(id))
+        );
+
+        if (!isMounted) {
+          return;
+        }
+
+        const spotlight =
+          featuredResponse?.results?.find((movie) => movie.backdrop_path) ||
+          featuredResponse?.results?.[0] ||
+          null;
+
+        const mappedShelves = DASHBOARD_SECTIONS.map((section, index) => {
+          if (section.key === "continueWatching") {
+            return {
+              ...section,
+              items: staticContinueWatching.filter(Boolean),
+            };
+          }
+          return {
+            ...section,
+            items:
+              sectionResponses[index]?.results
+                ?.filter((movie) => movie.backdrop_path || movie.poster_path)
+                ?.slice(0, 6) || [],
+          };
+        });
+
+        setFeaturedMovie(spotlight);
+        setShelves(mappedShelves);
+        setStatus({ loading: false, error: "" });
+      } catch (error) {
+        if (!isMounted) {
+          return;
+        }
+
+        setStatus({
+          loading: false,
+          error: error.message || "Unable to load movies right now.",
+        });
+      }
+    };
+
+    loadDashboard();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    let isCancelled = false;
+    const trimmedQuery = deferredSearchValue.trim();
+
+    if (!trimmedQuery) {
+      setSearchState({ loading: false, error: "", results: [] });
+      return;
+    }
+
+    if (trimmedQuery.length < SEARCH_MIN_CHARACTERS) {
+      setSearchState({ loading: false, error: "", results: [] });
+      return;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      (async () => {
+        try {
+          setSearchState((currentState) => ({ ...currentState, loading: true, error: "" }));
+          const results = await searchMovies(trimmedQuery);
+          if (isCancelled) return;
+          startTransition(() => {
+            setSearchState({
+              loading: false,
+              error: "",
+              results: results.slice(0, 5),
+            });
+          });
+        } catch (error) {
+          if (isCancelled) return;
+          setSearchState({
+            loading: false,
+            error: error.message || "Search is unavailable right now.",
+            results: [],
+          });
+        }
+      })();
+    }, 280);
+
+    return () => {
+      isCancelled = true;
+      window.clearTimeout(timeoutId);
+    };
+  }, [deferredSearchValue]);
+
+  const handleOpenMovieDetails = async (movie) => {
+    if (!movie?.id) {
+      return;
+    }
+
+    setSearchValue("");
+
+    setDrawerState({
+      isOpen: true,
+      isLoading: true,
+      error: "",
+      movie,
+    });
+
+    try {
+      const detailedMovie = await getMovieDetails(movie.id);
+
+      setDrawerState({
+        isOpen: true,
+        isLoading: false,
+        error: "",
+        movie: detailedMovie || movie,
+      });
+    } catch (error) {
+      setDrawerState({
+        isOpen: true,
+        isLoading: false,
+        error: error.message || "Unable to load movie details.",
+        movie,
+      });
     }
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 1024);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  const handleCloseDrawer = () => {
+    setDrawerState((currentState) => ({
+      ...currentState,
+      isOpen: false,
+    }));
+  };
 
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <Header />
       <AppContainer>
-        {!isMobile && <LeftSideMenu />}
-        <Content activeFilter={activeFilter} />
-        {!isMobile && (
-          <RightSideMenu activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
-        )}
+        <AmbientGlow $top />
+        <AmbientGlow $bottom />
+        <DashboardShell>
+          <SidebarColumn>
+            <DashboardSidebar
+              brand={APP_COPY.brand}
+              primaryLinks={SIDEBAR_PRIMARY_LINKS}
+              libraryLinks={SIDEBAR_LIBRARY_LINKS}
+            />
+          </SidebarColumn>
+
+          <MainPanel>
+            <TopArea>
+              <TopBar
+                placeholder={APP_COPY.searchPlaceholder}
+                searchValue={searchValue}
+                onSearchChange={setSearchValue}
+              />
+              <SearchOverlay>
+                <SearchResultsPanel
+                  query={searchValue}
+                  minCharacters={SEARCH_MIN_CHARACTERS}
+                  isLoading={searchState.loading}
+                  results={searchState.results}
+                  error={searchState.error}
+                  emptyText={APP_COPY.searchEmpty}
+                  hint={APP_COPY.searchHint}
+                  onSelectMovie={handleOpenMovieDetails}
+                />
+              </SearchOverlay>
+            </TopArea>
+
+            {status.loading ? (
+              <StateCard>
+                <LoadingOutlined />
+                <div>
+                  <StateTitle>Loading your movie dashboard</StateTitle>
+                  <StateText>Fetching trending releases and curated rows from TMDB.</StateText>
+                </div>
+              </StateCard>
+            ) : null}
+
+            {!status.loading && status.error ? (
+              <StateCard>
+                <WarningOutlined />
+                <div>
+                  <StateTitle>Couldn&apos;t load the catalog</StateTitle>
+                  <StateText>{status.error}</StateText>
+                </div>
+              </StateCard>
+            ) : null}
+
+            {!status.loading && !status.error ? (
+              <ContentStack>
+                <HeroBanner
+                  movie={featuredMovie}
+                  badge={FEATURED_COLLECTION.badge}
+                  primaryAction={APP_COPY.heroPrimaryAction}
+                  secondaryAction={APP_COPY.heroSecondaryAction}
+                  onOpenDetails={handleOpenMovieDetails}
+                />
+
+                {shelves.map((section) => (
+                  <MediaShelf
+                    key={section.key}
+                    sectionKey={section.key}
+                    title={section.title}
+                    cta={section.cta}
+                    items={section.items}
+                    onSelectMovie={handleOpenMovieDetails}
+                  />
+                ))}
+              </ContentStack>
+            ) : null}
+          </MainPanel>
+        </DashboardShell>
+        <MovieDetailsDrawer
+          isOpen={drawerState.isOpen}
+          onClose={handleCloseDrawer}
+          movie={drawerState.movie}
+          isLoading={drawerState.isLoading}
+          error={drawerState.error}
+          primaryAction={APP_COPY.detailsAction}
+          fallbackAction={APP_COPY.detailsFallback}
+        />
       </AppContainer>
-      <Footer
-        isDrawerOpen={() => handleDrawerOpen("first")}
-        isSecondDrawerOpen={() => handleDrawerOpen("second")}
-      />
-      <Drawer
-        open={isDrawerOpen}
-        onClose={() => handleDrawerOpen("first")}
-        direction="left"
-        lockBackgroundScroll="true"
-        size="90vw"
-      >
-        <LeftSideMenu />
-      </Drawer>
-      <Drawer
-        open={isSecondDrawerOpen}
-        onClose={() => handleDrawerOpen("second")}
-        direction="right"
-        lockBackgroundScroll="true"
-        size="90vw"
-      >
-        <RightSideMenu activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
-      </Drawer>
     </ThemeProvider>
   );
 };
+
 const AppContainer = styled.div`
+  position: relative;
   height: 100vh;
-  width: 100vw;
+  width: 100%;
+  padding: 2.4rem 2.8rem;
+  overflow: hidden;
 
-  @media (min-width: 1024px) {
-    display: grid;
-    grid-template-columns: 15% 60% 25%;
+  @media (max-width: 1100px) {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+    padding: 2rem;
   }
 
-  @media (max-width: 1024px) {
-    display: flex;
-    flex-direction: column;
+  @media (max-width: 720px) {
+    padding: 1.6rem;
   }
+`;
+
+const DashboardShell = styled.div`
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 26rem minmax(0, 1fr);
+  gap: 2rem;
+  height: calc(100vh - 4.8rem);
+  align-items: start;
+
+  @media (max-width: 1100px) {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  @media (max-width: 720px) {
+    min-height: calc(100vh - 3.2rem);
+  }
+`;
+
+const SidebarColumn = styled.div`
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: calc(100vh - 4.8rem);
+
+  @media (max-width: 1100px) {
+    position: static;
+    height: auto;
+  }
+`;
+
+const MainPanel = styled.main`
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 2rem;
+  min-width: 0;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  padding: 0.4rem 0 0.4rem 0.4rem;
+
+  @media (max-width: 1100px) {
+    height: auto;
+    overflow: visible;
+  }
+`;
+
+const TopArea = styled.div`
+  position: relative;
+  z-index: 4;
+`;
+
+const SearchOverlay = styled.div`
+  position: absolute;
+  top: calc(100% + 1rem);
+  left: 0;
+  width: min(44rem, 100%);
+  z-index: 5;
+
+  @media (max-width: 1100px) {
+    position: static;
+    width: 100%;
+    margin-top: 1rem;
+  }
+`;
+
+const ContentStack = styled.div`
+  display: grid;
+  gap: 2rem;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 0.8rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: ${({ theme }) => theme.radii.pill};
+  }
+
+  @media (max-width: 1100px) {
+    overflow: visible;
+    padding-right: 0;
+  }
+`;
+
+const StateCard = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.8rem;
+  border-radius: ${({ theme }) => theme.radii.xl};
+  background: rgba(8, 34, 51, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  svg {
+    flex-shrink: 0;
+    font-size: 2rem;
+    color: ${({ theme }) => theme.misc.gold};
+  }
+`;
+
+const StateTitle = styled.p`
+  color: ${({ theme }) => theme.text.primary};
+  font-size: 1.65rem;
+  font-weight: 800;
+`;
+
+const StateText = styled.p`
+  color: ${({ theme }) => theme.text.secondary};
+  font-size: 1.35rem;
+`;
+
+const AmbientGlow = styled.div`
+  position: absolute;
+  width: 42rem;
+  height: 42rem;
+  border-radius: ${({ theme }) => theme.radii.circle};
+  filter: blur(18px);
+  opacity: 0.65;
+  pointer-events: none;
+  background: ${({ $top, theme }) =>
+    $top
+      ? `radial-gradient(circle, ${theme.accent.soft} 0%, rgba(31, 127, 214, 0) 72%)`
+      : `radial-gradient(circle, ${theme.accent.strong} 0%, rgba(22, 182, 217, 0) 72%)`};
+  top: ${({ $top }) => ($top ? "-12rem" : "auto")};
+  right: ${({ $top }) => ($top ? "8%" : "auto")};
+  left: ${({ $top }) => ($top ? "auto" : "-12rem")};
+  bottom: ${({ $top }) => ($top ? "auto" : "-16rem")};
 `;
 
 export default App;

@@ -1,15 +1,29 @@
 import axios from "axios";
-import { AUTH_KEY, URL_BASE } from "./constants";
+import { AUTH_KEY, IMAGE_URL_BASE, URL_BASE } from "./constants";
 
 const cache = {};
 
-export const getDataFromAPI = async (endpoint, query = "", page = 1) => {
+const buildEndpoint = (endpoint, params = {}) => {
+  const searchParams = new URLSearchParams();
+
+  Object.entries(params).forEach(([key, value]) => {
+    if (value === undefined || value === null || value === "") {
+      return;
+    }
+
+    searchParams.set(key, String(value));
+  });
+
+  return `${endpoint}${searchParams.size ? `?${searchParams.toString()}` : ""}`;
+};
+
+export const getDataFromAPI = async (endpoint, params = {}) => {
   try {
     if (!AUTH_KEY) {
       throw new Error("Missing VITE_TMDB_AUTH_KEY environment variable.");
     }
 
-    const fullEndpoint = `${endpoint}${query && `?query=${query}`}${page > 1 ? `?page=${page}` : ""}`;
+    const fullEndpoint = buildEndpoint(endpoint, params);
 
     if (cache[fullEndpoint]) {
       return cache[fullEndpoint];
@@ -57,15 +71,15 @@ const mapGenreIdsToNames = async (genreIds) => {
   }
 };
 
-export const getMoviesWithGenres = async (endpoint, page = 1 ) => {
+export const getMoviesWithGenres = async (endpoint, options = {}) => {
   try {
-    const response = await getDataFromAPI(endpoint, "", page);
+    const response = await getDataFromAPI(endpoint, options);
 
     if (!response || !response.results) {
       throw new Error("Invalid response format");
     }
 
-    const genreIds = response.results.flatMap((movie) => movie.genre_ids);
+    const genreIds = [...new Set(response.results.flatMap((movie) => movie.genre_ids))];
     const mappedGenres = await mapGenreIdsToNames(genreIds);
     const moviesWithGenres = response?.results?.map((movie) => ({
       ...movie,
@@ -79,6 +93,46 @@ export const getMoviesWithGenres = async (endpoint, page = 1 ) => {
     console.error(error);
     return;
   }
+};
+
+export const searchMovies = async (query) => {
+  const sanitizedQuery = query?.trim();
+
+  if (!sanitizedQuery) {
+    return [];
+  }
+
+  const response = await getMoviesWithGenres("/search/movie", {
+    query: sanitizedQuery,
+    include_adult: false,
+  });
+
+  return response?.results?.filter((movie) => movie.poster_path || movie.backdrop_path) || [];
+};
+
+export const getMovieDetails = async (movieId) => {
+  if (!movieId) {
+    return null;
+  }
+
+  const response = await getDataFromAPI(`/movie/${movieId}`, {
+    append_to_response: "credits,videos",
+  });
+
+  return {
+    ...response,
+    genres: response?.genres || [],
+    cast: response?.credits?.cast?.slice(0, 6) || [],
+    trailer: response?.videos?.results?.find((video) => video.site === "YouTube" && video.type === "Trailer") || null,
+  };
+};
+
+export const getImageUrl = (path) => {
+  if (!path) {
+    return "";
+  }
+
+  return `${IMAGE_URL_BASE}${path}`;
 };
 
 export const mapActorDetails = async (actorId) => {
