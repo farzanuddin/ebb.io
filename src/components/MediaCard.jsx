@@ -76,7 +76,7 @@ const Card = styled.button`
   min-width: ${({ $showProgress }) => ($showProgress ? "25.5rem" : "23rem")};
   padding: 0;
   border-radius: ${({ theme }) => theme.radii.xl};
-  overflow: hidden;
+  overflow: visible;
   background: rgba(8, 34, 51, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: ${({ theme }) => theme.shadow.soft};
@@ -96,6 +96,9 @@ const Poster = styled.div`
   background-color: ${({ theme }) => theme.surface.elevated};
   background-position: center;
   background-size: cover;
+  border-top-left-radius: ${({ theme }) => theme.radii.xl};
+  border-top-right-radius: ${({ theme }) => theme.radii.xl};
+  overflow: hidden;
 `;
 
 const RatingBadge = styled.span`

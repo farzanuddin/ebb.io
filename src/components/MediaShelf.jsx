@@ -12,7 +12,7 @@ export const MediaShelf = ({ sectionKey, title, items, onSelectMovie }) => {
           <SectionTitle>{title}</SectionTitle>
         </div>
       </SectionHeader>
-      <CardRow showProgress={showProgress}>
+      <CardRow $showProgress={showProgress}>
         {items.map((movie) => (
           <MediaCard
             key={movie.id}
@@ -58,11 +58,12 @@ const SectionTitle = styled.h2`
 const CardRow = styled.div`
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: ${({ showProgress }) =>
-    showProgress ? "minmax(25rem, 1fr)" : "minmax(22rem, 1fr)"};
+  grid-auto-columns: ${({ $showProgress }) =>
+    $showProgress ? "minmax(25rem, 1fr)" : "minmax(22rem, 1fr)"};
   gap: 1.4rem;
   overflow-x: auto;
-  padding-bottom: 0.4rem;
+  overflow-y: visible;
+  padding: 0.4rem 1.2rem 0.4rem 0.4rem;
   scrollbar-width: none;
   -ms-overflow-style: none;
 

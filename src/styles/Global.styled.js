@@ -1,8 +1,6 @@
 import * as styled from "styled-components";
 
 export const GlobalStyles = styled.createGlobalStyle`
-  @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Syne:wght@600;700;800&display=swap");
-
   html {
     font-size: 62.5%;
     box-sizing: border-box;

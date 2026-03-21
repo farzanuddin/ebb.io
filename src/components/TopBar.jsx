@@ -9,6 +9,11 @@ const Input = styled.input`
     color: ${({ theme }) => theme.text.secondary};
     opacity: 0.7;
   }
+  &:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+    outline-offset: 0 !important;
+  }
 `;
 
 import styled from "styled-components";
@@ -28,15 +33,6 @@ export const TopBar = ({ placeholder, searchValue, onSearchChange }) => {
           aria-label="Search movies"
         />
       </SearchSection>
-      <Actions>
-        <BellWrapper aria-label="Notifications">
-          <BellOutlined style={{ fontSize: "1.9rem" }} />
-          <NotificationDot />
-        </BellWrapper>
-        <Avatar>
-          <UserOutlined />
-        </Avatar>
-      </Actions>
     </Bar>
   );
 };
@@ -68,50 +64,22 @@ const SearchSection = styled.div`
   gap: 1.2rem;
   max-width: 44rem;
   width: 100%;
-`;
+  border-radius: ${({ theme }) => theme.radii.lg};
 
-const Actions = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-`;
-
-
-const BellWrapper = styled.div`
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 3.9rem;
-  height: 3.9rem;
-  cursor: pointer;
-`;
-
-const NotificationDot = styled.span`
-  position: absolute;
-  top: 0.7rem;
-  right: 0.7rem;
-  width: 0.85rem;
-  height: 0.85rem;
-  border-radius: ${({ theme }) => theme.radii.circle};
-  background: #ff4d4f;
-  box-shadow: 0 0 0 0 rgba(255,77,79,0.7);
-  animation: pulse 1.2s infinite;
-  z-index: 2;
-  @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(255,77,79,0.7); }
-    70% { box-shadow: 0 0 0 6px rgba(255,77,79,0); }
-    100% { box-shadow: 0 0 0 0 rgba(255,77,79,0); }
+    padding: 0.35rem;
+    
+    &:focus,
+    &:focus-visible,
+    &:focus-within {
+      outline: none !important;
+      box-shadow: none !important;
   }
+    
+    &:focus-within {
+      outline: 2.5px solid ${({ theme }) => theme.misc.blue};
+      outline-offset: 2px;
+      box-shadow: 0 0 0 2px rgba(102, 215, 255, 0.18);
+    }
 `;
 
-const Avatar = styled.div`
-  display: grid;
-  place-items: center;
-  width: 3.9rem;
-  height: 3.9rem;
-  border-radius: ${({ theme }) => theme.radii.circle};
-  background: ${({ theme }) => theme.accent.strong};
-  color: ${({ theme }) => theme.misc.white};
-  font-size: 1.7rem;
-`;
+/* Actions moved to App layout (top-right) */

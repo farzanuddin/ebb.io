@@ -29,12 +29,12 @@ const SidebarGroup = ({ title, items }) => (
   <LinkGroup>
     {title ? <GroupLabel>{title}</GroupLabel> : null}
     <NavList>
-      {items.map((item) => {
+        {items.map((item) => {
         const Icon = iconMap[item.icon] || CompassOutlined;
 
         return (
           <NavItem key={item.key}>
-            <NavButton $active={item.active}>
+            <NavButton $active={item.active} data-label={item.label}>
               <Icon />
               <span>{item.label}</span>
             </NavButton>
@@ -148,9 +148,8 @@ const NavButton = styled.button`
   width: 100%;
   padding: 1.15rem 1.2rem;
   border-radius: ${({ theme }) => theme.radii.lg};
-  background: ${({ $active, theme, children }) => {
-    // children[1] is the <span> with label
-    if ($active && children && children[1] && children[1].props && children[1].props.children === "Home") {
+  background: ${({ $active, theme, 'data-label': dataLabel }) => {
+    if ($active && dataLabel === "Home") {
       return `linear-gradient(135deg, rgba(22,182,217,0.68) 0%, rgba(31,127,214,0.54) 100%)`;
     }
     return $active ? theme.accent.strong : "transparent";
@@ -159,28 +158,25 @@ const NavButton = styled.button`
   border: none;
   transition: transform 180ms ease, background 180ms ease, color 180ms ease;
 
-  /* Remove hover for HOME button */
-  ${({ $active, children }) => {
-    if ($active && children && children[1] && children[1].props && children[1].props.children === "Home") {
-      return '';
-    }
-    return `
-      &:hover {
-        transform: ${'${({ $active }) => ($active ? "none" : "translateX(2px)")};'}
-        color: ${'${({ theme }) => theme.accent.strong};'}
-        background: ${'${({ $active, theme }) => ($active ? theme.accent.soft : "rgba(255, 255, 255, 0.05)")};'}
-      }
-    `;
-  }}
+  /* Use the same hover state as FooterButton for all buttons except the Home button */
+  &[data-label]:not([data-label="Home"]):hover {
+    color: ${({ theme }) => theme.text.primary};
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  /* Icons inherit the button color and transition smoothly */
+  svg {
+    font-size: 1.6rem;
+    color: currentColor;
+    transition: transform 180ms ease, color 180ms ease;
+  }
 
   span {
     font-size: 1.45rem;
     font-weight: 600;
   }
 
-  svg {
-    font-size: 1.6rem;
-  }
+  
 `;
 
 const FooterActions = styled.div`

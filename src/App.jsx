@@ -1,6 +1,7 @@
 import { startTransition, useDeferredValue, useEffect, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { LoadingOutlined, WarningOutlined } from "@ant-design/icons";
+import { BellOutlined, UserOutlined } from "@ant-design/icons";
 import { getMovieDetails, getMoviesWithGenres, searchMovies } from "./api";
 import {
   APP_COPY,
@@ -207,6 +208,15 @@ const App = () => {
                 searchValue={searchValue}
                 onSearchChange={setSearchValue}
               />
+              <TopActions>
+                <BellWrapper aria-label="Notifications">
+                  <BellOutlined style={{ fontSize: "1.9rem" }} />
+                  <NotificationDot />
+                </BellWrapper>
+                <Avatar>
+                  <UserOutlined />
+                </Avatar>
+              </TopActions>
               <SearchOverlay>
                 <SearchResultsPanel
                   query={searchValue}
@@ -284,7 +294,7 @@ const AppContainer = styled.div`
   height: 100vh;
   width: 100%;
   padding: 2.4rem 2.8rem;
-  overflow: hidden;
+  overflow: visible;
 
   @media (max-width: 1100px) {
     height: auto;
@@ -336,7 +346,7 @@ const MainPanel = styled.main`
   min-width: 0;
   height: 100%;
   min-height: 0;
-  overflow: hidden;
+  overflow: visible;
   padding: 0.4rem 0 0.4rem 0.4rem;
 
   @media (max-width: 1100px) {
@@ -348,6 +358,68 @@ const MainPanel = styled.main`
 const TopArea = styled.div`
   position: relative;
   z-index: 4;
+`;
+
+const TopActions = styled.div`
+  position: absolute;
+  top: 0.35rem;
+  right: 0;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  z-index: 6;
+
+  @media (max-width: 1100px) {
+    position: static;
+    margin-top: 0.6rem;
+  }
+`;
+
+const BellWrapper = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.9rem;
+  height: 3.9rem;
+  cursor: pointer;
+  border-radius: ${({ theme }) => theme.radii.circle};
+  background: transparent;
+  color: ${({ theme }) => theme.text.secondary};
+
+  &:hover {
+    color: ${({ theme }) => theme.text.primary};
+    background: rgba(255, 255, 255, 0.04);
+  }
+`;
+
+const NotificationDot = styled.span`
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: ${({ theme }) => theme.radii.circle};
+  background: #ff4d4f;
+  box-shadow: 0 0 0 0 rgba(255,77,79,0.7);
+  animation: pulse 1.2s infinite;
+  z-index: 2;
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255,77,79,0.7); }
+    70% { box-shadow: 0 0 0 6px rgba(255,77,79,0); }
+    100% { box-shadow: 0 0 0 0 rgba(255,77,79,0); }
+  }
+`;
+
+const Avatar = styled.div`
+  display: grid;
+  place-items: center;
+  width: 3.9rem;
+  height: 3.9rem;
+  border-radius: ${({ theme }) => theme.radii.circle};
+  background: ${({ theme }) => theme.accent.strong};
+  color: ${({ theme }) => theme.misc.white};
+  font-size: 1.7rem;
 `;
 
 const SearchOverlay = styled.div`
@@ -369,7 +441,7 @@ const ContentStack = styled.div`
   gap: 2rem;
   min-height: 0;
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: visible;
   padding-right: 0.8rem;
   scrollbar-width: none;
   -ms-overflow-style: none;
