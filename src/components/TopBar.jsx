@@ -1,21 +1,3 @@
-const Input = styled.input`
-  background: transparent;
-  border: none;
-  outline: none;
-  color: ${({ theme }) => theme.text.primary};
-  font-size: 1.25rem;
-  width: 100%;
-  &::placeholder {
-    color: ${({ theme }) => theme.text.secondary};
-    opacity: 0.7;
-  }
-  &:focus-visible {
-    outline: none !important;
-    box-shadow: none !important;
-    outline-offset: 0 !important;
-  }
-`;
-
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { SearchOutlined } from "@ant-design/icons";
@@ -80,4 +62,22 @@ const SearchSection = styled.div`
       outline-offset: 2px;
       box-shadow: 0 0 0 2px rgba(102, 215, 255, 0.18);
     }
+`;
+
+const Input = styled.input`
+  background: transparent;
+  border: none;
+  outline: none;
+  color: ${({ theme }) => theme.text.primary};
+  font-size: 1.25rem;
+  width: 100%;
+  &::placeholder {
+    color: ${({ theme }) => theme.text.secondary};
+    opacity: 0.7;
+  }
+  &:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+    outline-offset: 0 !important;
+  }
 `;

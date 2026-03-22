@@ -77,8 +77,6 @@ const Card = styled.button`
   padding: 0;
   border-radius: ${({ theme }) => theme.borderRadius.md};
   overflow: visible;
-  /* Fix the total card height for continue-watching cards so they don't grow
-     with very wide viewports */
   height: ${({ $showProgress }) => ($showProgress ? "12rem" : "auto")};
   background: rgba(8, 34, 51, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -118,8 +116,6 @@ const RatingBadge = styled.span`
   font-size: 1.15rem;
   font-weight: 700;
 `;
-
-/* Full-art variant removed — keeping poster overlay only */
 
 const PosterOverlay = styled.div`
   position: absolute;

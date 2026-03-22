@@ -1,92 +1,91 @@
 import styled from "styled-components";
 import {
-    AppstoreOutlined,
-    ClockCircleOutlined,
-    CompassOutlined,
-    DownloadOutlined,
-    HeartOutlined,
-    HomeFilled,
-    LogoutOutlined,
-    PlayCircleOutlined,
-    SettingOutlined,
-    FolderOpenOutlined,
+  AppstoreOutlined,
+  ClockCircleOutlined,
+  CompassOutlined,
+  DownloadOutlined,
+  HeartOutlined,
+  HomeFilled,
+  LogoutOutlined,
+  PlayCircleOutlined,
+  SettingOutlined,
+  FolderOpenOutlined,
 } from "@ant-design/icons";
-
-const iconMap = {
-    home: HomeFilled,
-    compass: CompassOutlined,
-    grid: AppstoreOutlined,
-    heart: HeartOutlined,
-    play: PlayCircleOutlined,
-    clock: ClockCircleOutlined,
-    folder: FolderOpenOutlined,
-    download: DownloadOutlined,
-};
-
 import PropTypes from 'prop-types';
 
-const SidebarGroup = ({ title, items }) => (
-    <LinkGroup>
-        {title ? <GroupLabel>{title}</GroupLabel> : null}
-        <NavList>
-            {items.map((item) => {
-                const Icon = iconMap[item.icon] || CompassOutlined;
+const iconMap = {
+  home: HomeFilled,
+  compass: CompassOutlined,
+  grid: AppstoreOutlined,
+  heart: HeartOutlined,
+  play: PlayCircleOutlined,
+  clock: ClockCircleOutlined,
+  folder: FolderOpenOutlined,
+  download: DownloadOutlined,
+};
 
-                return (
-                    <NavItem key={item.key}>
-                        <NavButton $active={item.active} data-label={item.label}>
-                            <Icon />
-                            <span>{item.label}</span>
-                        </NavButton>
-                    </NavItem>
-                );
-            })}
-        </NavList>
-    </LinkGroup>
+const SidebarGroup = ({ title, items }) => (
+  <LinkGroup>
+    {title ? <GroupLabel>{title}</GroupLabel> : null}
+    <NavList>
+      {items.map((item) => {
+        const Icon = iconMap[item.icon] || CompassOutlined;
+
+        return (
+          <NavItem key={item.key}>
+            <NavButton $active={item.active} data-label={item.label}>
+              <Icon />
+              <span>{item.label}</span>
+            </NavButton>
+          </NavItem>
+        );
+      })}
+    </NavList>
+  </LinkGroup>
 );
 
 export const DashboardSidebar = ({ primaryLinks, libraryLinks }) => {
-    return (
-        <Sidebar>
-            <BrandLockup>
-                <BrandLogo src="/logo.svg" alt="App logo" />
-                <span>Riverside</span>
-            </BrandLockup>
+  return (
+    <Sidebar>
+      <BrandLockup>
+        <BrandLogo src="/logo.svg" alt="App logo" />
+        <span>Riverside</span>
+      </BrandLockup>
 
-            <SidebarStack>
-                <SidebarGroup items={primaryLinks} />
-                <SidebarGroup title="Library" items={libraryLinks} />
-            </SidebarStack>
+      <SidebarStack>
+        <SidebarGroup items={primaryLinks} />
+        <SidebarGroup title="Library" items={libraryLinks} />
+      </SidebarStack>
 
-            <FooterActions>
-                <FooterButton>
-                    <SettingOutlined />
-                    <span>Settings</span>
-                </FooterButton>
-                <FooterButton $danger>
-                    <LogoutOutlined />
-                    <span>Logout</span>
-                </FooterButton>
-            </FooterActions>
-        </Sidebar>
-    );
+      <FooterActions>
+        <FooterButton>
+          <SettingOutlined />
+          <span>Settings</span>
+        </FooterButton>
+        <FooterButton $danger>
+          <LogoutOutlined />
+          <span>Logout</span>
+        </FooterButton>
+      </FooterActions>
+    </Sidebar>
+  );
 };
 
 SidebarGroup.propTypes = {
-    title: PropTypes.string,
-    items: PropTypes.arrayOf(
-        PropTypes.shape({
-            key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-            label: PropTypes.string,
-            icon: PropTypes.string,
-            active: PropTypes.bool,
-        })
-    ).isRequired,
+  title: PropTypes.string,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      label: PropTypes.string,
+      icon: PropTypes.string,
+      active: PropTypes.bool,
+    })
+  ).isRequired,
 };
 
 DashboardSidebar.propTypes = {
-    primaryLinks: PropTypes.array.isRequired,
-    libraryLinks: PropTypes.array.isRequired,
+  primaryLinks: PropTypes.array.isRequired,
+  libraryLinks: PropTypes.array.isRequired,
 };
 
 const Sidebar = styled.aside`
@@ -155,11 +154,11 @@ const NavButton = styled.button`
   padding: 1.15rem 1.2rem;
   border-radius: ${({ theme }) => theme.borderRadius.md};
   background: ${({ $active, theme, 'data-label': dataLabel }) => {
-        if ($active && dataLabel === "Home") {
-            return `linear-gradient(135deg, rgba(22,182,217,0.68) 0%, rgba(31,127,214,0.54) 100%)`;
-        }
-        return $active ? theme.accent.strong : "transparent";
-    }};
+    if ($active && dataLabel === "Home") {
+      return `linear-gradient(135deg, rgba(22,182,217,0.68) 0%, rgba(31,127,214,0.54) 100%)`;
+    }
+    return $active ? theme.accent.strong : "transparent";
+  }};
   color: ${({ $active, theme }) => ($active ? theme.misc.white : theme.text.secondary)};
   border: none;
   transition: transform 180ms ease, background 180ms ease, color 180ms ease;
