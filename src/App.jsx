@@ -421,8 +421,6 @@ const TopArea = styled.div`
   }
 `;
 
-/* TopActions moved into TopBar as `rightActions` */
-
 const BellWrapper = styled.div`
   position: relative;
   display: flex;
@@ -465,7 +463,7 @@ const Avatar = styled.div`
   width: 3.9rem;
   height: 3.9rem;
   border-radius: ${({ theme }) => theme.borderRadius.circle};
-  background: ${({ theme }) => theme.accent.strong};
+    background: linear-gradient(135deg, ${({ theme }) => theme.accent.strong} 0%, ${({ theme }) => theme.accent.soft} 100%);
   color: ${({ theme }) => theme.misc.white};
   font-size: ${({ theme }) => theme.fontSizes.lg};
 `;

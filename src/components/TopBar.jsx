@@ -74,7 +74,6 @@ const RightActions = styled.div`
   display: flex;
   align-items: center;
   gap: 0.8rem;
-
   position: absolute;
   top: 0.35rem;
   right: 0;

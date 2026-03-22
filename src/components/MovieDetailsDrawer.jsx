@@ -4,130 +4,130 @@ import styled, { useTheme } from "styled-components";
 import PropTypes from "prop-types";
 import { APP_COPY } from "../constants";
 import {
-    CloseOutlined,
-    PlayCircleFilled,
-    StarFilled,
-    CalendarOutlined,
-    ClockCircleOutlined,
+  CloseOutlined,
+  PlayCircleFilled,
+  StarFilled,
+  CalendarOutlined,
+  ClockCircleOutlined,
 } from "@ant-design/icons";
 import { getImageUrl } from "../api";
 
 export const MovieDetailsDrawer = ({
-    isOpen,
-    onClose,
-    movie,
-    isLoading,
-    error,
-    primaryAction,
-    fallbackAction,
+  isOpen,
+  onClose,
+  movie,
+  isLoading,
+  error,
+  primaryAction,
+  fallbackAction,
 }) => {
-    const backdropUrl = getImageUrl(movie?.backdrop_path || movie?.poster_path);
-    const theme = useTheme();
-    const trailerUrl = movie?.trailer?.key ? `https://www.youtube.com/watch?v=${movie.trailer.key}` : "";
-    const continueWatchingIds = [20526, 673, 68734, 76341];
-    const showContinueWatching = movie && continueWatchingIds.includes(movie.id);
-    const showWatchNow = movie && !continueWatchingIds.includes(movie.id);
+  const backdropUrl = getImageUrl(movie?.backdrop_path || movie?.poster_path);
+  const theme = useTheme();
+  const trailerUrl = movie?.trailer?.key ? `https://www.youtube.com/watch?v=${movie.trailer.key}` : "";
+  const continueWatchingIds = [20526, 673, 68734, 76341];
+  const showContinueWatching = movie && continueWatchingIds.includes(movie.id);
+  const showWatchNow = movie && !continueWatchingIds.includes(movie.id);
 
-    return (
-      <Drawer open={isOpen} onClose={onClose} direction="right" size="min(52rem, 100vw)" className="movie-details-drawer">
-        <DrawerShell>
-                <DrawerHeader>
-                  <DrawerEyebrow>{APP_COPY.drawerTitle}</DrawerEyebrow>
-                  <CloseButton onClick={onClose} aria-label={APP_COPY.closeDetailsAria}>
-                        <CloseOutlined />
-                    </CloseButton>
-                </DrawerHeader>
+  return (
+    <Drawer open={isOpen} onClose={onClose} direction="right" size="min(52rem, 100vw)" className="movie-details-drawer">
+      <DrawerShell>
+        <DrawerHeader>
+          <DrawerEyebrow>{APP_COPY.drawerTitle}</DrawerEyebrow>
+          <CloseButton onClick={onClose} aria-label={APP_COPY.closeDetailsAria}>
+            <CloseOutlined />
+          </CloseButton>
+        </DrawerHeader>
 
-                {isLoading ? (
-                    <StateMessage>Loading movie details...</StateMessage>
+        {isLoading ? (
+          <StateMessage>Loading movie details...</StateMessage>
+        ) : null}
+
+        {!isLoading && error ? <StateMessage>{error}</StateMessage> : null}
+
+        {!isLoading && movie ? (
+          <>
+            <HeroImage style={{ backgroundImage: `linear-gradient(180deg, ${theme.alpha.dark06} 0%, ${theme.alpha.dark72} 100%), url(${backdropUrl})` }}>
+              <ScoreBadge>
+                <StarFilled />
+                {movie.vote_average ? movie.vote_average.toFixed(1) : "NR"}
+              </ScoreBadge>
+            </HeroImage>
+
+            <ContentStack>
+              <Title>{movie.title}</Title>
+              {movie.tagline ? <Tagline>{movie.tagline}</Tagline> : null}
+              <MetaRow>
+                <MetaPill>
+                  <CalendarOutlined />
+                  <span>{movie.release_date?.slice(0, 4) || "TBA"}</span>
+                </MetaPill>
+                {movie.runtime ? (
+                  <MetaPill>
+                    <ClockCircleOutlined />
+                    <span>{movie.runtime} min</span>
+                  </MetaPill>
                 ) : null}
+              </MetaRow>
 
-                {!isLoading && error ? <StateMessage>{error}</StateMessage> : null}
+              <GenreRow>
+                {(movie.genres || []).map((genre) => (
+                  <GenrePill key={genre.id}>{genre.name}</GenrePill>
+                ))}
+              </GenreRow>
 
-                {!isLoading && movie ? (
-                    <>
-                        <HeroImage style={{ backgroundImage: `linear-gradient(180deg, ${theme.alpha.dark06} 0%, ${theme.alpha.dark72} 100%), url(${backdropUrl})` }}>
-                            <ScoreBadge>
-                                <StarFilled />
-                                {movie.vote_average ? movie.vote_average.toFixed(1) : "NR"}
-                            </ScoreBadge>
-                        </HeroImage>
+              <Overview>{movie.overview || APP_COPY.noSynopsis}</Overview>
 
-                        <ContentStack>
-                            <Title>{movie.title}</Title>
-                            {movie.tagline ? <Tagline>{movie.tagline}</Tagline> : null}
-                            <MetaRow>
-                                <MetaPill>
-                                    <CalendarOutlined />
-                                    <span>{movie.release_date?.slice(0, 4) || "TBA"}</span>
-                                </MetaPill>
-                                {movie.runtime ? (
-                                    <MetaPill>
-                                        <ClockCircleOutlined />
-                                        <span>{movie.runtime} min</span>
-                                    </MetaPill>
-                                ) : null}
-                            </MetaRow>
+              <ActionRow>
 
-                            <GenreRow>
-                                {(movie.genres || []).map((genre) => (
-                                    <GenrePill key={genre.id}>{genre.name}</GenrePill>
-                                ))}
-                            </GenreRow>
+                {trailerUrl ? (
+                  <>
+                    {showContinueWatching && (
+                      <ContinueWatchingButton>
+                        <PlayCircleFilled />
+                        <span>{APP_COPY.continueWatchingLabel}</span>
+                      </ContinueWatchingButton>
+                    )}
+                    {showWatchNow && (
+                      <ContinueWatchingButton>
+                        <PlayCircleFilled />
+                        <span>{APP_COPY.watchNowLabel}</span>
+                      </ContinueWatchingButton>
+                    )}
 
-                            <Overview>{movie.overview || APP_COPY.noSynopsis}</Overview>
+                    <ActionLink href={trailerUrl} target="_blank" rel="noreferrer">
+                      <PlayCircleFilled />
+                      <span>{primaryAction}</span>
+                    </ActionLink>
+                  </>
+                ) : (
+                  <MutedAction>{fallbackAction}</MutedAction>
+                )}
+              </ActionRow>
 
-                            <ActionRow>
-
-                                {trailerUrl ? (
-                                  <>
-                                    {showContinueWatching && (
-                                      <ContinueWatchingButton>
-                                        <PlayCircleFilled />
-                                        <span>{APP_COPY.continueWatchingLabel}</span>
-                                      </ContinueWatchingButton>
-                                    )}
-                                    {showWatchNow && (
-                                      <ContinueWatchingButton>
-                                        <PlayCircleFilled />
-                                        <span>{APP_COPY.watchNowLabel}</span>
-                                      </ContinueWatchingButton>
-                                    )}
-
-                                    <ActionLink href={trailerUrl} target="_blank" rel="noreferrer">
-                                      <PlayCircleFilled />
-                                      <span>{primaryAction}</span>
-                                    </ActionLink>
-                                  </>
-                                ) : (
-                                  <MutedAction>{fallbackAction}</MutedAction>
-                                )}
-                              </ActionRow>
-
-                            {movie.cast?.length ? (
-                                <Section>
-                                    <SectionTitle>Top cast</SectionTitle>
-                                    <CastGrid>
-                                        {movie.cast.map((person) => (
-                                            <CastCard key={person.id}>
-                                                <CastAvatar
-                                                  style={{ backgroundImage: `linear-gradient(180deg, ${theme.alpha.dark06} 0%, ${theme.alpha.dark32} 100%), url(${getImageUrl(person.profile_path)})` }}
-                                                />
-                                                <div>
-                                                    <CastName>{person.name}</CastName>
-                                                    <CastRole>{person.character}</CastRole>
-                                                </div>
-                                            </CastCard>
-                                        ))}
-                                    </CastGrid>
-                                </Section>
-                            ) : null}
-                        </ContentStack>
-                    </>
-                ) : null}
-            </DrawerShell>
-        </Drawer>
-    );
+              {movie.cast?.length ? (
+                <Section>
+                  <SectionTitle>Top cast</SectionTitle>
+                  <CastGrid>
+                    {movie.cast.map((person) => (
+                      <CastCard key={person.id}>
+                        <CastAvatar
+                          style={{ backgroundImage: `linear-gradient(180deg, ${theme.alpha.dark06} 0%, ${theme.alpha.dark32} 100%), url(${getImageUrl(person.profile_path)})` }}
+                        />
+                        <div>
+                          <CastName>{person.name}</CastName>
+                          <CastRole>{person.character}</CastRole>
+                        </div>
+                      </CastCard>
+                    ))}
+                  </CastGrid>
+                </Section>
+              ) : null}
+            </ContentStack>
+          </>
+        ) : null}
+      </DrawerShell>
+    </Drawer>
+  );
 };
 
 MovieDetailsDrawer.propTypes = {
@@ -146,8 +146,8 @@ const ContinueWatchingButton = styled.button`
   gap: 0.8rem;
   padding: 1rem 1.4rem;
   border-radius: ${({ theme }) => theme.borderRadius.md};
-  background: ${({ theme }) => theme.accent.strong};
-  color: ${({ theme }) => theme.misc.white};
+  outline: 2px solid ${({ theme }) => theme.accent.strong};
+  color: ${({ theme }) => theme.accent.strong};
   font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: 700;
   border: none;
@@ -155,8 +155,8 @@ const ContinueWatchingButton = styled.button`
   margin-right: 1rem;
   transition: background 180ms, color 180ms;
   &:hover {
-    background: ${({ theme }) => theme.accent.soft};
-    color: ${({ theme }) => theme.accent.strong};
+    background: ${({ theme }) => theme.accent.strong};
+    color: ${({ theme }) => theme.misc.white};
   }
 `;
 
@@ -305,7 +305,7 @@ const ActionLink = styled.a`
   color: ${({ theme }) => theme.misc.white};
   font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: 700;
-
+  transition: background 180ms, color 180ms;
   &:hover {
     text-decoration: none;
   }
