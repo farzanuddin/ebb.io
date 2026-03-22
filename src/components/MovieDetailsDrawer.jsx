@@ -1,6 +1,6 @@
 import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import PropTypes from "prop-types";
 import {
     CloseOutlined,
@@ -21,6 +21,7 @@ export const MovieDetailsDrawer = ({
     fallbackAction,
 }) => {
     const backdropUrl = getImageUrl(movie?.backdrop_path || movie?.poster_path);
+    const theme = useTheme();
     const trailerUrl = movie?.trailer?.key ? `https://www.youtube.com/watch?v=${movie.trailer.key}` : "";
     const continueWatchingIds = [20526, 673, 68734, 76341];
     const showContinueWatching = movie && continueWatchingIds.includes(movie.id);
@@ -44,7 +45,7 @@ export const MovieDetailsDrawer = ({
 
                 {!isLoading && movie ? (
                     <>
-                        <HeroImage style={{ backgroundImage: `linear-gradient(180deg, rgba(4, 24, 38, 0.02) 0%, rgba(4, 24, 38, 0.76) 100%), url(${backdropUrl})` }}>
+                        <HeroImage style={{ backgroundImage: `linear-gradient(180deg, ${theme.alpha.dark02} 0%, ${theme.alpha.dark76} 100%), url(${backdropUrl})` }}>
                             <ScoreBadge>
                                 <StarFilled />
                                 {movie.vote_average ? movie.vote_average.toFixed(1) : "NR"}
@@ -109,7 +110,7 @@ export const MovieDetailsDrawer = ({
                                         {movie.cast.map((person) => (
                                             <CastCard key={person.id}>
                                                 <CastAvatar
-                                                    style={{ backgroundImage: `linear-gradient(180deg, rgba(4, 24, 38, 0.08) 0%, rgba(4, 24, 38, 0.24) 100%), url(${getImageUrl(person.profile_path)})` }}
+                                                  style={{ backgroundImage: `linear-gradient(180deg, ${theme.alpha.dark08} 0%, ${theme.alpha.dark24} 100%), url(${getImageUrl(person.profile_path)})` }}
                                                 />
                                                 <div>
                                                     <CastName>{person.name}</CastName>
@@ -146,7 +147,7 @@ const ContinueWatchingButton = styled.button`
   border-radius: ${({ theme }) => theme.borderRadius.md};
   background: ${({ theme }) => theme.accent.strong};
   color: ${({ theme }) => theme.misc.white};
-  font-size: 1.35rem;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: 700;
   border: none;
   cursor: pointer;
@@ -164,7 +165,7 @@ const DrawerShell = styled.div`
   scrollbar-width: none;
   -ms-overflow-style: none;
   padding: 2rem;
-  background: linear-gradient(180deg, rgba(7, 31, 48, 0.98) 0%, rgba(4, 22, 36, 0.98) 100%);
+  background: linear-gradient(180deg, ${({ theme }) => theme.alpha.deep98} 0%, ${({ theme }) => theme.alpha.dark98} 100%);
 
   &::-webkit-scrollbar {
     width: 0;
@@ -188,7 +189,7 @@ const DrawerHeader = styled.div`
 
 const DrawerEyebrow = styled.p`
   color: ${({ theme }) => theme.text.tertiary};
-  font-size: 1.15rem;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -200,12 +201,12 @@ const CloseButton = styled.button`
   width: 4rem;
   height: 4rem;
   border-radius: ${({ theme }) => theme.borderRadius.md};
-  background: rgba(255, 255, 255, 0.06);
+  background: ${({ theme }) => theme.alpha.white06};
 `;
 
 const StateMessage = styled.p`
   color: ${({ theme }) => theme.text.secondary};
-  font-size: 1.4rem;
+  font-size: ${({ theme }) => theme.fontSizes.md};
 `;
 
 const HeroImage = styled.div`
@@ -227,9 +228,9 @@ const ScoreBadge = styled.span`
   gap: 0.55rem;
   padding: 0.7rem 0.95rem;
   border-radius: ${({ theme }) => theme.borderRadius.pill};
-  background: rgba(4, 24, 38, 0.72);
+  background: ${({ theme }) => theme.alpha.dark72};
   color: ${({ theme }) => theme.misc.gold};
-  font-size: 1.2rem;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: 700;
 `;
 
@@ -241,13 +242,13 @@ const ContentStack = styled.div`
 
 const Title = styled.h2`
   color: ${({ theme }) => theme.text.primary};
-  font-size: 3.2rem;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   line-height: 0.98;
 `;
 
 const Tagline = styled.p`
   color: ${({ theme }) => theme.text.secondary};
-  font-size: 1.45rem;
+  font-size: ${({ theme }) => theme.fontSizes.md};
 `;
 
 const MetaRow = styled.div`
@@ -262,9 +263,9 @@ const MetaPill = styled.span`
   gap: 0.55rem;
   padding: 0.7rem 1rem;
   border-radius: ${({ theme }) => theme.borderRadius.pill};
-  background: rgba(255, 255, 255, 0.06);
+  background: ${({ theme }) => theme.alpha.white06};
   color: ${({ theme }) => theme.text.primary};
-  font-size: 1.2rem;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: 700;
 `;
 
@@ -277,14 +278,14 @@ const GenreRow = styled.div`
 const GenrePill = styled.span`
   padding: 0.55rem 0.85rem;
   border-radius: ${({ theme }) => theme.borderRadius.pill};
-  background: rgba(255, 255, 255, 0.06);
+  background: ${({ theme }) => theme.alpha.white06};
   color: ${({ theme }) => theme.text.secondary};
-  font-size: 1.15rem;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
 `;
 
 const Overview = styled.p`
   color: ${({ theme }) => theme.text.secondary};
-  font-size: 1.45rem;
+  font-size: ${({ theme }) => theme.fontSizes.md};
 `;
 
 const ActionRow = styled.div`
@@ -301,7 +302,7 @@ const ActionLink = styled.a`
   border-radius: ${({ theme }) => theme.borderRadius.md};
   background: linear-gradient(135deg, ${({ theme }) => theme.accent.strong} 0%, ${({ theme }) => theme.accent.soft} 100%);
   color: ${({ theme }) => theme.misc.white};
-  font-size: 1.35rem;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: 700;
 
   &:hover {
@@ -314,9 +315,9 @@ const MutedAction = styled.span`
   align-items: center;
   padding: 1rem 1.4rem;
   border-radius: ${({ theme }) => theme.borderRadius.md};
-  background: rgba(255, 255, 255, 0.06);
+  background: ${({ theme }) => theme.alpha.white06};
   color: ${({ theme }) => theme.text.tertiary};
-  font-size: 1.35rem;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: 700;
 `;
 
@@ -327,7 +328,7 @@ const Section = styled.section`
 
 const SectionTitle = styled.h3`
   color: ${({ theme }) => theme.text.primary};
-  font-size: 1.8rem;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   font-weight: 800;
 `;
 
@@ -343,7 +344,7 @@ const CastCard = styled.div`
   align-items: center;
   padding: 0.8rem;
   border-radius: ${({ theme }) => theme.borderRadius.md};
-  background: rgba(255, 255, 255, 0.04);
+  background: ${({ theme }) => theme.alpha.white04};
 `;
 
 const CastAvatar = styled.div`
@@ -357,11 +358,11 @@ const CastAvatar = styled.div`
 
 const CastName = styled.p`
   color: ${({ theme }) => theme.text.primary};
-  font-size: 1.35rem;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: 700;
 `;
 
 const CastRole = styled.p`
   color: ${({ theme }) => theme.text.tertiary};
-  font-size: 1.2rem;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
 `;

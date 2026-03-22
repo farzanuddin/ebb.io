@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import PropTypes from "prop-types";
 import {
   DownloadOutlined,
@@ -10,12 +10,13 @@ import { getImageUrl } from "../api";
 
 export const HeroBanner = ({ movie, badge, primaryAction, onOpenDetails }) => {
   const imageUrl = getImageUrl(movie?.backdrop_path || movie?.poster_path);
+  const theme = useTheme();
   const genres = movie?.genres?.filter(Boolean).slice(0, 3) || [];
   const releaseYear = movie?.release_date?.slice(0, 4) || "Now";
   const rating = movie?.vote_average ? movie.vote_average.toFixed(1) : null;
 
   return (
-    <Hero style={{ backgroundImage: `linear-gradient(90deg, rgba(4, 24, 38, 0.92) 0%, rgba(4, 24, 38, 0.58) 48%, rgba(4, 24, 38, 0.08) 100%), url(${imageUrl})` }}>
+    <Hero style={{ backgroundImage: `linear-gradient(90deg, ${theme.alpha.dark92} 0%, ${theme.alpha.dark58} 48%, ${theme.alpha.dark08} 100%), url(${imageUrl})` }}>
       <TopMetaRow>
         <Badge>{badge}</Badge>
         <TagRow>
@@ -69,7 +70,7 @@ const Hero = styled.section`
   background-color: ${({ theme }) => theme.surface.elevated};
   background-position: center top;
   background-size: cover;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid ${({ theme }) => theme.alpha.white08};
   box-shadow: ${({ theme }) => theme.shadow.panel};
   overflow: hidden;
 
@@ -82,9 +83,9 @@ const Hero = styled.section`
 const Badge = styled.span`
   padding: 0.65rem 1rem;
   border-radius: ${({ theme }) => theme.borderRadius.pill};
-  background: rgba(255, 171, 87, 0.18);
+  background: ${({ theme }) => theme.alpha.gold18};
   color: ${({ theme }) => theme.misc.gold};
-  font-size: 1.2rem;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: 700;
   flex-shrink: 0;
 `;
@@ -105,9 +106,9 @@ const TagRow = styled.div`
 const Tag = styled.span`
   padding: 0.55rem 0.9rem;
   border-radius: ${({ theme }) => theme.borderRadius.pill};
-  background: rgba(255, 255, 255, 0.08);
+  background: ${({ theme }) => theme.alpha.white08};
   color: ${({ theme }) => theme.text.primary};
-  font-size: 1.15rem;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
 `;
 
 const Title = styled.h1`
@@ -119,7 +120,7 @@ const Title = styled.h1`
 const Summary = styled.p`
   max-width: 56rem;
   color: ${({ theme }) => theme.text.secondary};
-  font-size: 1.35rem;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   overflow-wrap: anywhere;
 `;
 
@@ -135,9 +136,9 @@ const MetaPill = styled.span`
   gap: 0.5rem;
   padding: 0.65rem 1rem;
   border-radius: ${({ theme }) => theme.borderRadius.pill};
-  background: rgba(255, 255, 255, 0.08);
+  background: ${({ theme }) => theme.alpha.white08};
   color: ${({ theme }) => theme.text.primary};
-  font-size: 1.2rem;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: 700;
 `;
 
@@ -157,7 +158,7 @@ const PrimaryButton = styled.button`
   background: linear-gradient(135deg, ${({ theme }) => theme.accent.strong} 0%, ${({ theme }) => theme.accent.soft} 100%);
   color: ${({ theme }) => theme.misc.white};
   font-weight: 700;
-  box-shadow: 0 18px 32px rgba(22, 182, 217, 0.22);
+  box-shadow: 0 18px 32px ${({ theme }) => theme.alpha.accent22};
 `;
 
 const IconActionButton = styled.button`
@@ -167,15 +168,15 @@ const IconActionButton = styled.button`
   width: 4.4rem;
   height: 4.2rem;
   border-radius: ${({ theme }) => theme.borderRadius.md};
-  background: rgba(255, 255, 255, 0.08);
+  background: ${({ theme }) => theme.alpha.white08};
   color: ${({ theme }) => theme.text.primary};
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid ${({ theme }) => theme.alpha.white12};
 
   &:hover {
-    background: rgba(255, 255, 255, 0.14);
+    background: ${({ theme }) => theme.alpha.white14};
   }
 
   svg {
-    font-size: 1.8rem;
+    font-size: ${({ theme }) => theme.fontSizes.lg};
   }
 `;

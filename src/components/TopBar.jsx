@@ -34,8 +34,8 @@ const Bar = styled.div`
   max-width: 44rem;
   padding: 1.1rem 1.6rem;
   border-radius: ${({ theme }) => theme.borderRadius.md};
-  background: rgba(8, 34, 51, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: ${({ theme }) => theme.alpha.navy88};
+  border: 1px solid ${({ theme }) => theme.alpha.white08};
   box-shadow: ${({ theme }) => theme.shadow.soft};
 `;
 
@@ -60,7 +60,7 @@ const SearchSection = styled.div`
     &:focus-within {
       outline: 2.5px solid ${({ theme }) => theme.misc.blue};
       outline-offset: 2px;
-      box-shadow: 0 0 0 2px rgba(102, 215, 255, 0.18);
+      box-shadow: 0 0 0 2px ${({ theme }) => theme.alpha.accentGlow};
     }
 `;
 
@@ -69,7 +69,7 @@ const Input = styled.input`
   border: none;
   outline: none;
   color: ${({ theme }) => theme.text.primary};
-  font-size: 1.25rem;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   width: 100%;
   &::placeholder {
     color: ${({ theme }) => theme.text.secondary};

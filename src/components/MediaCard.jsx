@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import PropTypes from "prop-types";
 import { StarFilled } from "@ant-design/icons";
 import { getImageUrl } from "../api";
@@ -18,6 +18,7 @@ const getProgressData = (movie) => {
 
 export const MediaCard = ({ movie, onSelectMovie, showProgress = false }) => {
   const imageUrl = getImageUrl(movie?.backdrop_path || movie?.poster_path);
+  const theme = useTheme();
   const genres = movie?.genres?.filter(Boolean).slice(0, 2) || [];
   const rating = movie?.vote_average ? movie.vote_average.toFixed(1) : "NR";
   const year = movie?.release_date?.slice(0, 4) || "TBA";
@@ -27,7 +28,7 @@ export const MediaCard = ({ movie, onSelectMovie, showProgress = false }) => {
     <Card onClick={() => onSelectMovie(movie)} $showProgress={showProgress}>
       <Poster
         $showProgress={showProgress}
-        style={{ backgroundImage: `linear-gradient(180deg, rgba(4, 24, 38, 0.06) 0%, rgba(4, 24, 38, 0.72) 100%), url(${imageUrl})` }}
+        style={{ backgroundImage: `linear-gradient(180deg, ${theme.alpha.dark06} 0%, ${theme.alpha.dark72} 100%), url(${imageUrl})` }}
       >
         {!showProgress ? (
           <RatingBadge>
@@ -78,16 +79,16 @@ const Card = styled.button`
   border-radius: ${({ theme }) => theme.borderRadius.md};
   overflow: visible;
   height: ${({ $showProgress }) => ($showProgress ? "12rem" : "auto")};
-  background: rgba(8, 34, 51, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: ${({ theme }) => theme.alpha.navy92};
+  border: 1px solid ${({ theme }) => theme.alpha.white08};
   box-shadow: ${({ theme }) => theme.shadow.soft};
   text-align: left;
   transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
 
   &:hover {
-    border-color: rgba(255, 255, 255, 0.2);
-    background: rgba(10, 40, 60, 0.96);
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 18px 36px rgba(3, 19, 31, 0.34);
+    border-color: ${({ theme }) => theme.alpha.white20};
+    background: ${({ theme }) => theme.alpha.dark96};
+    box-shadow: 0 0 0 1px ${({ theme }) => theme.alpha.white08}, 0 18px 36px ${({ theme }) => theme.alpha.dark32};
   }
 `;
 
@@ -111,9 +112,9 @@ const RatingBadge = styled.span`
   gap: 0.5rem;
   padding: 0.6rem 0.85rem;
   border-radius: ${({ theme }) => theme.borderRadius.pill};
-  background: rgba(4, 24, 38, 0.74);
+  background: ${({ theme }) => theme.alpha.dark74};
   color: ${({ theme }) => theme.misc.gold};
-  font-size: 1.15rem;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: 700;
 `;
 
@@ -123,12 +124,12 @@ const PosterOverlay = styled.div`
   right: 0;
   bottom: 0;
   padding: 0.95rem 1.2rem;
-  background: linear-gradient(180deg, rgba(4, 24, 38, 0) 0%, rgba(4, 24, 38, 0.92) 92%);
+  background: linear-gradient(180deg, transparent 0%, ${({ theme }) => theme.alpha.dark92} 92%);
 `;
 
 const OverlayTitle = styled.p`
   color: ${({ theme }) => theme.text.primary};
-  font-size: 1.35rem;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: 700;
   line-height: 1.15;
   display: -webkit-box;
@@ -139,7 +140,7 @@ const OverlayTitle = styled.p`
 
 const OverlayMeta = styled.p`
   color: ${({ theme }) => theme.text.tertiary};
-  font-size: 1.1rem;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   margin-bottom: 0.55rem;
 `;
 
@@ -147,7 +148,7 @@ const ProgressTrack = styled.div`
   width: 100%;
   height: 0.55rem;
   border-radius: ${({ theme }) => theme.borderRadius.pill};
-  background: rgba(255, 255, 255, 0.14);
+  background: ${({ theme }) => theme.alpha.white14};
   overflow: hidden;
 `;
 
@@ -174,13 +175,13 @@ const Body = styled.div`
 
 const Title = styled.h3`
   color: ${({ theme }) => theme.text.primary};
-  font-size: 1.6rem;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   line-height: 1.15;
 `;
 
 const Meta = styled.p`
   color: ${({ theme }) => theme.text.tertiary};
-  font-size: 1.25rem;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
 `;
 
 const GenreRow = styled.div`
@@ -192,7 +193,7 @@ const GenreRow = styled.div`
 const GenrePill = styled.span`
   padding: 0.45rem 0.75rem;
   border-radius: ${({ theme }) => theme.borderRadius.pill};
-  background: rgba(255, 255, 255, 0.06);
+  background: ${({ theme }) => theme.alpha.white06};
   color: ${({ theme }) => theme.text.secondary};
-  font-size: 1.1rem;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
 `;

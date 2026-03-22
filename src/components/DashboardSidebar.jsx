@@ -95,9 +95,9 @@ const Sidebar = styled.aside`
   min-height: 100%;
   padding: 2.4rem 1.8rem;
   border-radius: ${({ theme }) => theme.borderRadius.md};
-  background: linear-gradient(180deg, rgba(6, 33, 53, 0.96) 0%, rgba(8, 42, 64, 0.88) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  background: linear-gradient(180deg, ${({ theme }) => theme.alpha.deep98} 0%, ${({ theme }) => theme.alpha.navy88} 100%);
+  border: 1px solid ${({ theme }) => theme.alpha.white08};
+  box-shadow: inset 0 1px 0 ${({ theme }) => theme.alpha.white05};
 
   @media (max-width: 1100px) {
     min-height: auto;
@@ -108,7 +108,7 @@ const BrandLockup = styled.div`
   display: flex;
     align-items: center;
     gap: 0.8rem;
-    font-size: 1.5rem;
+    font-size: ${({ theme }) => theme.fontSizes.md};
     font-weight: 700;
     color: ${({ theme }) => theme.misc.white};
 `;
@@ -132,7 +132,7 @@ const LinkGroup = styled.div`
 `;
 
 const GroupLabel = styled.p`
-  font-size: 1.1rem;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.text.muted};
@@ -155,7 +155,7 @@ const NavButton = styled.button`
   border-radius: ${({ theme }) => theme.borderRadius.md};
   background: ${({ $active, theme, 'data-label': dataLabel }) => {
     if ($active && dataLabel === "Home") {
-      return `linear-gradient(135deg, rgba(22,182,217,0.68) 0%, rgba(31,127,214,0.54) 100%)`;
+      return `linear-gradient(135deg, ${theme.alpha.sky68} 0%, ${theme.alpha.sky54} 100%)`;
     }
     return $active ? theme.accent.strong : "transparent";
   }};
@@ -165,17 +165,17 @@ const NavButton = styled.button`
 
   &[data-label]:not([data-label="Home"]):hover {
     color: ${({ theme }) => theme.text.primary};
-    background: rgba(255, 255, 255, 0.05);
+    background: ${({ theme }) => theme.alpha.white05};
   }
 
   svg {
-    font-size: 1.6rem;
+    font-size: ${({ theme }) => theme.fontSizes.md};
     color: currentColor;
     transition: transform 180ms ease, color 180ms ease;
   }
 
   span {
-    font-size: 1.45rem;
+    font-size: ${({ theme }) => theme.fontSizes.md};
     font-weight: 600;
   }
 
@@ -186,7 +186,7 @@ const FooterActions = styled.div`
   display: grid;
   gap: 0.8rem;
   padding-top: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid ${({ theme }) => theme.alpha.white06};
   margin-top: auto;
   align-self: stretch;
 `;
@@ -202,8 +202,8 @@ const FooterButton = styled.button`
   background: transparent;
 
   &:hover {
-    color: ${({ $danger, theme }) => ($danger ? "#ffd6d6" : theme.text.primary)};
-    background: ${({ $danger }) => ($danger ? "rgba(255, 92, 92, 0.16)" : "rgba(255, 255, 255, 0.05)")};
+    color: ${({ $danger, theme }) => ($danger ? theme.danger.soft : theme.text.primary)};
+    background: ${({ $danger, theme }) => ($danger ? theme.alpha.dangerSoft : theme.alpha.white05)};
   }
 
   span {

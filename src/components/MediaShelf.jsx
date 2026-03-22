@@ -48,7 +48,7 @@ const SectionHeader = styled.div`
 
 const SectionTitle = styled.h2`
   color: ${({ theme }) => theme.text.primary};
-  font-size: 2.2rem;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   font-weight: 800;
   letter-spacing: -0.03em;
 `;

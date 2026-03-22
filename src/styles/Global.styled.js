@@ -18,13 +18,13 @@ export const GlobalStyles = styled.createGlobalStyle`
   }
 
   body {
-    font-size: 1.6rem;
+    font-size: ${({ theme }) => theme.fontSizes.md};
     min-height: 100vh;
     overflow: hidden;
     padding: 0 0;
     background:
-      radial-gradient(circle at top, rgba(31, 127, 214, 0.35) 0%, rgba(31, 127, 214, 0) 30%),
-      radial-gradient(circle at bottom left, rgba(22, 182, 217, 0.24) 0%, rgba(22, 182, 217, 0) 26%),
+      radial-gradient(circle at top, ${({ theme }) => theme.alpha.sky35} 0%, transparent 30%),
+      radial-gradient(circle at bottom left, ${({ theme }) => theme.alpha.accent24} 0%, transparent 26%),
       ${({ theme }) => theme.background};
     color: ${({ theme }) => theme.text.primary};
   }
@@ -47,7 +47,7 @@ export const GlobalStyles = styled.createGlobalStyle`
   *:focus-visible {
     outline: 2.5px solid ${({ theme }) => theme.misc.blue};
     outline-offset: 2px;
-    box-shadow: 0 0 0 2px rgba(102, 215, 255, 0.18);
+    box-shadow: 0 0 0 2px ${({ theme }) => theme.alpha.accentGlow};
     transition: outline-color 120ms;
   }
 
@@ -70,7 +70,7 @@ export const GlobalStyles = styled.createGlobalStyle`
   }
 
   ::selection {
-    background: rgba(22, 182, 217, 0.35);
+    background: ${({ theme }) => theme.alpha.accent35};
     color: ${({ theme }) => theme.misc.white};
   }
 

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import PropTypes from "prop-types";
 import { LoadingOutlined, SearchOutlined } from "@ant-design/icons";
 import { getImageUrl } from "../api";
@@ -15,6 +15,7 @@ export const SearchResultsPanel = ({
 }) => {
   const hasQuery = query.trim().length > 0;
   const canSearch = query.trim().length >= minCharacters;
+  const theme = useTheme();
 
   if (!hasQuery) {
     return null;
@@ -43,7 +44,7 @@ export const SearchResultsPanel = ({
             <ResultButton key={movie.id} onClick={() => onSelectMovie(movie)}>
               <Poster
                 style={{
-                  backgroundImage: `linear-gradient(180deg, rgba(4, 24, 38, 0.08) 0%, rgba(4, 24, 38, 0.32) 100%), url(${getImageUrl(movie.poster_path || movie.backdrop_path)})`,
+                  backgroundImage: `linear-gradient(180deg, ${theme.alpha.dark08} 0%, ${theme.alpha.dark32} 100%), url(${getImageUrl(movie.poster_path || movie.backdrop_path)})`,
                 }}
               />
               <ResultBody>
@@ -81,8 +82,8 @@ const Panel = styled.div`
   scrollbar-width: none;
   -ms-overflow-style: none;
   border-radius: ${({ theme }) => theme.borderRadius.md};
-  background: rgba(8, 34, 51, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: ${({ theme }) => theme.alpha.navy88};
+  border: 1px solid ${({ theme }) => theme.alpha.white08};
   box-shadow: ${({ theme }) => theme.shadow.soft};
 
   &::-webkit-scrollbar {
@@ -102,7 +103,7 @@ const PanelHeader = styled.div`
   align-items: center;
   gap: 0.8rem;
   color: ${({ theme }) => theme.text.primary};
-  font-size: 1.35rem;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: 700;
 `;
 
@@ -111,7 +112,7 @@ const PanelText = styled.p`
   align-items: center;
   gap: 0.8rem;
   color: ${({ theme }) => theme.text.secondary};
-  font-size: 1.3rem;
+  font-size: ${({ theme }) => theme.fontSizes.md};
 `;
 
 const ResultsList = styled.div`
@@ -130,7 +131,7 @@ const ResultButton = styled.button`
   text-align: left;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.06);
+    background: ${({ theme }) => theme.alpha.white06};
   }
 `;
 
@@ -151,7 +152,7 @@ const ResultBody = styled.div`
 
 const ResultTitle = styled.p`
   color: ${({ theme }) => theme.text.primary};
-  font-size: 1.45rem;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: 700;
 `;
 
@@ -159,5 +160,5 @@ const ResultMeta = styled.div`
   display: flex;
   gap: 1rem;
   color: ${({ theme }) => theme.text.tertiary};
-  font-size: 1.2rem;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
 `;

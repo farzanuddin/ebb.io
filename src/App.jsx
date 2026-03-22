@@ -391,7 +391,7 @@ const BellWrapper = styled.div`
 
   &:hover {
     color: ${({ theme }) => theme.text.primary};
-    background: rgba(255, 255, 255, 0.04);
+    background: ${({ theme }) => theme.alpha.white04};
   }
 `;
 
@@ -402,14 +402,14 @@ const NotificationDot = styled.span`
   width: 0.85rem;
   height: 0.85rem;
   border-radius: ${({ theme }) => theme.borderRadius.circle};
-  background: #ff4d4f;
-  box-shadow: 0 0 0 0 rgba(255,77,79,0.7);
+  background: ${({ theme }) => theme.danger.base};
+  box-shadow: 0 0 0 0 ${({ theme }) => theme.alpha.dangerPulse};
   animation: pulse 1.2s infinite;
   z-index: 2;
   @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(255,77,79,0.7); }
-    70% { box-shadow: 0 0 0 6px rgba(255,77,79,0); }
-    100% { box-shadow: 0 0 0 0 rgba(255,77,79,0); }
+    0% { box-shadow: 0 0 0 0 ${({ theme }) => theme.alpha.dangerPulse}; }
+    70% { box-shadow: 0 0 0 6px transparent; }
+    100% { box-shadow: 0 0 0 0 transparent; }
   }
 `;
 
@@ -421,7 +421,7 @@ const Avatar = styled.div`
   border-radius: ${({ theme }) => theme.borderRadius.circle};
   background: ${({ theme }) => theme.accent.strong};
   color: ${({ theme }) => theme.misc.white};
-  font-size: 1.7rem;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
 `;
 
 const SearchOverlay = styled.div`
@@ -472,25 +472,25 @@ const StateCard = styled.div`
   gap: 1.2rem;
   padding: 1.8rem;
   border-radius: ${({ theme }) => theme.borderRadius.md};
-  background: rgba(8, 34, 51, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: ${({ theme }) => theme.alpha.navy82};
+  border: 1px solid ${({ theme }) => theme.alpha.white08};
 
   svg {
     flex-shrink: 0;
-    font-size: 2rem;
+    font-size: ${({ theme }) => theme.fontSizes.lg};
     color: ${({ theme }) => theme.misc.gold};
   }
 `;
 
 const StateTitle = styled.p`
   color: ${({ theme }) => theme.text.primary};
-  font-size: 1.65rem;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   font-weight: 800;
 `;
 
 const StateText = styled.p`
   color: ${({ theme }) => theme.text.secondary};
-  font-size: 1.35rem;
+  font-size: ${({ theme }) => theme.fontSizes.md};
 `;
 
 const AmbientGlow = styled.div`
@@ -503,8 +503,8 @@ const AmbientGlow = styled.div`
   pointer-events: none;
   background: ${({ $top, theme }) =>
     $top
-      ? `radial-gradient(circle, ${theme.accent.soft} 0%, rgba(31, 127, 214, 0) 72%)`
-      : `radial-gradient(circle, ${theme.accent.strong} 0%, rgba(22, 182, 217, 0) 72%)`};
+      ? `radial-gradient(circle, ${theme.accent.soft} 0%, transparent 72%)`
+      : `radial-gradient(circle, ${theme.accent.strong} 0%, transparent 72%)`};
   top: ${({ $top }) => ($top ? "-12rem" : "auto")};
   right: ${({ $top }) => ($top ? "8%" : "auto")};
   left: ${({ $top }) => ($top ? "auto" : "-12rem")};
