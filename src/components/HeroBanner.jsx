@@ -1,4 +1,5 @@
 import styled, { useTheme } from "styled-components";
+import { APP_COPY } from "../constants";
 import PropTypes from "prop-types";
 import {
   DownloadOutlined,
@@ -25,8 +26,8 @@ export const HeroBanner = ({ movie, badge, primaryAction, onOpenDetails }) => {
           ))}
         </TagRow>
       </TopMetaRow>
-      <Title>{movie?.title || "Cinema, curated beautifully"}</Title>
-      <Summary>{movie?.overview || "Discover the most talked-about stories, surfaced with bold artwork and clean categorisation."}</Summary>
+      <Title>{movie?.title || APP_COPY.heroDefaultTitle}</Title>
+      <Summary>{movie?.overview || APP_COPY.heroDefaultSummary}</Summary>
       <MetaRow>
         <MetaPill>{releaseYear}</MetaPill>
         {rating ? (
@@ -41,10 +42,10 @@ export const HeroBanner = ({ movie, badge, primaryAction, onOpenDetails }) => {
           <PlayCircleFilled />
           <span>{primaryAction}</span>
         </PrimaryButton>
-        <IconActionButton aria-label="Download">
+        <IconActionButton aria-label={APP_COPY.downloadLabel}>
           <DownloadOutlined />
         </IconActionButton>
-        <IconActionButton aria-label="More options">
+        <IconActionButton aria-label={APP_COPY.moreOptionsLabel}>
           <EllipsisOutlined />
         </IconActionButton>
       </ActionRow>

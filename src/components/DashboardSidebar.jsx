@@ -12,6 +12,7 @@ import {
   FolderOpenOutlined,
 } from "@ant-design/icons";
 import PropTypes from 'prop-types';
+import { APP_COPY } from "../constants";
 
 const iconMap = {
   home: HomeFilled,
@@ -32,39 +33,39 @@ const SidebarGroup = ({ title, items }) => (
         const Icon = iconMap[item.icon] || CompassOutlined;
 
         return (
-          <NavItem key={item.key}>
+          <li key={item.key}>
             <NavButton $active={item.active} data-label={item.label}>
               <Icon />
               <span>{item.label}</span>
             </NavButton>
-          </NavItem>
+          </li>
         );
       })}
     </NavList>
   </LinkGroup>
 );
 
-export const DashboardSidebar = ({ primaryLinks, libraryLinks }) => {
+export const DashboardSidebar = ({ brand, primaryLinks, libraryLinks }) => {
   return (
     <Sidebar>
       <BrandLockup>
-        <BrandLogo src="/logo.svg" alt="App logo" />
-        <span>Riverside</span>
+        <BrandLogo src="/logo.svg" alt={APP_COPY.appLogoAlt} />
+        <span>{brand}</span>
       </BrandLockup>
 
       <SidebarStack>
         <SidebarGroup items={primaryLinks} />
-        <SidebarGroup title="Library" items={libraryLinks} />
+        <SidebarGroup title={APP_COPY.sidebarLibraryTitle} items={libraryLinks} />
       </SidebarStack>
 
       <FooterActions>
         <FooterButton>
           <SettingOutlined />
-          <span>Settings</span>
+          <span>{APP_COPY.settingsLabel}</span>
         </FooterButton>
         <FooterButton $danger>
           <LogoutOutlined />
-          <span>Logout</span>
+          <span>{APP_COPY.logoutLabel}</span>
         </FooterButton>
       </FooterActions>
     </Sidebar>
@@ -84,6 +85,7 @@ SidebarGroup.propTypes = {
 };
 
 DashboardSidebar.propTypes = {
+  brand: PropTypes.string,
   primaryLinks: PropTypes.array.isRequired,
   libraryLinks: PropTypes.array.isRequired,
 };
@@ -143,8 +145,6 @@ const NavList = styled.ul`
   display: grid;
   gap: 0.4rem;
 `;
-
-const NavItem = styled.li``;
 
 const NavButton = styled.button`
   display: flex;

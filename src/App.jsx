@@ -92,7 +92,7 @@ const App = () => {
 
         setStatus({
           loading: false,
-          error: error.message || "Unable to load movies right now.",
+          error: error.message || APP_COPY.errorLoadMovies,
         });
       }
     };
@@ -135,7 +135,7 @@ const App = () => {
           if (isCancelled) return;
           setSearchState({
             loading: false,
-            error: error.message || "Search is unavailable right now.",
+            error: error.message || APP_COPY.errorSearchUnavailable,
             results: [],
           });
         }
@@ -175,7 +175,7 @@ const App = () => {
       setDrawerState({
         isOpen: true,
         isLoading: false,
-        error: error.message || "Unable to load movie details.",
+        error: error.message || APP_COPY.errorLoadDetails,
         movie,
       });
     }
@@ -259,7 +259,6 @@ const App = () => {
                   movie={featuredMovie}
                   badge={FEATURED_COLLECTION.badge}
                   primaryAction={APP_COPY.heroPrimaryAction}
-                  secondaryAction={APP_COPY.heroSecondaryAction}
                   onOpenDetails={handleOpenMovieDetails}
                 />
 

@@ -2,6 +2,7 @@ import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
 import styled, { useTheme } from "styled-components";
 import PropTypes from "prop-types";
+import { APP_COPY } from "../constants";
 import {
     CloseOutlined,
     PlayCircleFilled,
@@ -31,8 +32,8 @@ export const MovieDetailsDrawer = ({
       <Drawer open={isOpen} onClose={onClose} direction="right" size="min(52rem, 100vw)" className="movie-details-drawer">
         <DrawerShell>
                 <DrawerHeader>
-                    <DrawerEyebrow>Movie details</DrawerEyebrow>
-                    <CloseButton onClick={onClose} aria-label="Close movie details">
+                  <DrawerEyebrow>{APP_COPY.drawerTitle}</DrawerEyebrow>
+                  <CloseButton onClick={onClose} aria-label={APP_COPY.closeDetailsAria}>
                         <CloseOutlined />
                     </CloseButton>
                 </DrawerHeader>
@@ -74,7 +75,7 @@ export const MovieDetailsDrawer = ({
                                 ))}
                             </GenreRow>
 
-                            <Overview>{movie.overview || "No synopsis available."}</Overview>
+                            <Overview>{movie.overview || APP_COPY.noSynopsis}</Overview>
 
                             <ActionRow>
 
@@ -83,13 +84,13 @@ export const MovieDetailsDrawer = ({
                                     {showContinueWatching && (
                                       <ContinueWatchingButton>
                                         <PlayCircleFilled />
-                                        <span>Continue Watching</span>
+                                        <span>{APP_COPY.continueWatchingLabel}</span>
                                       </ContinueWatchingButton>
                                     )}
                                     {showWatchNow && (
                                       <ContinueWatchingButton>
                                         <PlayCircleFilled />
-                                        <span>Watch Now</span>
+                                        <span>{APP_COPY.watchNowLabel}</span>
                                       </ContinueWatchingButton>
                                     )}
 

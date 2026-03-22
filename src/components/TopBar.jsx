@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { APP_COPY } from "../constants";
 import { SearchOutlined } from "@ant-design/icons";
 
 export const TopBar = ({ placeholder, searchValue, onSearchChange }) => {
@@ -12,7 +13,7 @@ export const TopBar = ({ placeholder, searchValue, onSearchChange }) => {
           placeholder={placeholder}
           value={searchValue}
           onChange={e => onSearchChange(e.target.value)}
-          aria-label="Search movies"
+          aria-label={APP_COPY.searchAriaLabel}
         />
       </SearchSection>
     </Bar>

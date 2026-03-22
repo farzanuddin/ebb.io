@@ -163,7 +163,7 @@ const ProgressMeta = styled.div`
   justify-content: space-between;
   gap: 1rem;
   color: ${({ theme }) => theme.text.tertiary};
-  font-size: 1.1rem;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: 600;
 `;
 

@@ -2,6 +2,7 @@ import styled, { useTheme } from "styled-components";
 import PropTypes from "prop-types";
 import { LoadingOutlined, SearchOutlined } from "@ant-design/icons";
 import { getImageUrl } from "../api";
+import { APP_COPY } from "../constants";
 
 export const SearchResultsPanel = ({
   query,
@@ -25,14 +26,14 @@ export const SearchResultsPanel = ({
     <Panel>
       <PanelHeader>
         <SearchOutlined />
-        <span>Search</span>
+        <span>{APP_COPY.searchLabel}</span>
       </PanelHeader>
 
       {!canSearch ? <PanelText>{hint}</PanelText> : null}
       {canSearch && isLoading ? (
         <PanelText>
           <LoadingOutlined />
-          Searching TMDB...
+          {APP_COPY.searchingStatus}
         </PanelText>
       ) : null}
       {canSearch && !isLoading && error ? <PanelText>{error}</PanelText> : null}
