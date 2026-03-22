@@ -437,7 +437,7 @@ const BellWrapper = styled.div`
 
   &:hover {
     color: ${({ theme }) => theme.text.primary};
-    background: ${({ theme }) => theme.alpha.white04};
+    background: ${({ theme }) => theme.alpha.white06};
   }
 `;
 
@@ -518,8 +518,9 @@ const StateCard = styled.div`
   gap: 1.2rem;
   padding: 1.8rem;
   border-radius: ${({ theme }) => theme.borderRadius.md};
-  background: ${({ theme }) => theme.alpha.navy82};
-  border: 1px solid ${({ theme }) => theme.alpha.white08};
+  background: ${({ theme }) => theme.alpha.navy88};
+  border: 1px solid ${({ theme }) => theme.alpha.white06};
+  
 
   svg {
     flex-shrink: 0;

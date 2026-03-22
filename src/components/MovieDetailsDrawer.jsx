@@ -46,7 +46,7 @@ export const MovieDetailsDrawer = ({
 
                 {!isLoading && movie ? (
                     <>
-                        <HeroImage style={{ backgroundImage: `linear-gradient(180deg, ${theme.alpha.dark02} 0%, ${theme.alpha.dark76} 100%), url(${backdropUrl})` }}>
+                        <HeroImage style={{ backgroundImage: `linear-gradient(180deg, ${theme.alpha.dark06} 0%, ${theme.alpha.dark72} 100%), url(${backdropUrl})` }}>
                             <ScoreBadge>
                                 <StarFilled />
                                 {movie.vote_average ? movie.vote_average.toFixed(1) : "NR"}
@@ -111,7 +111,7 @@ export const MovieDetailsDrawer = ({
                                         {movie.cast.map((person) => (
                                             <CastCard key={person.id}>
                                                 <CastAvatar
-                                                  style={{ backgroundImage: `linear-gradient(180deg, ${theme.alpha.dark08} 0%, ${theme.alpha.dark24} 100%), url(${getImageUrl(person.profile_path)})` }}
+                                                  style={{ backgroundImage: `linear-gradient(180deg, ${theme.alpha.dark06} 0%, ${theme.alpha.dark32} 100%), url(${getImageUrl(person.profile_path)})` }}
                                                 />
                                                 <div>
                                                     <CastName>{person.name}</CastName>
@@ -166,7 +166,7 @@ const DrawerShell = styled.div`
   scrollbar-width: none;
   -ms-overflow-style: none;
   padding: 2rem;
-  background: linear-gradient(180deg, ${({ theme }) => theme.alpha.deep98} 0%, ${({ theme }) => theme.alpha.dark98} 100%);
+  background: linear-gradient(180deg, ${({ theme }) => theme.alpha.dark98} 0%, ${({ theme }) => theme.alpha.dark98} 100%);
 
   &::-webkit-scrollbar {
     width: 0;
@@ -345,7 +345,7 @@ const CastCard = styled.div`
   align-items: center;
   padding: 0.8rem;
   border-radius: ${({ theme }) => theme.borderRadius.md};
-  background: ${({ theme }) => theme.alpha.white04};
+  background: ${({ theme }) => theme.alpha.white06};
 `;
 
 const CastAvatar = styled.div`

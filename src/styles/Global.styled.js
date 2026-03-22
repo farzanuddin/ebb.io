@@ -23,7 +23,7 @@ export const GlobalStyles = styled.createGlobalStyle`
     overflow: hidden;
     padding: 0 0;
     background:
-      radial-gradient(circle at top, ${({ theme }) => theme.alpha.sky35} 0%, transparent 30%),
+      radial-gradient(circle at top, ${({ theme }) => theme.alpha.sky54} 0%, transparent 30%),
       radial-gradient(circle at bottom left, ${({ theme }) => theme.alpha.accent24} 0%, transparent 26%),
       ${({ theme }) => theme.background};
     color: ${({ theme }) => theme.text.primary};
@@ -54,7 +54,6 @@ export const GlobalStyles = styled.createGlobalStyle`
   *:focus-visible {
     outline: 2.5px solid ${({ theme }) => theme.misc.blue};
     outline-offset: 2px;
-    box-shadow: 0 0 0 2px ${({ theme }) => theme.alpha.accentGlow};
     transition: outline-color 120ms;
   }
 
@@ -77,7 +76,7 @@ export const GlobalStyles = styled.createGlobalStyle`
   }
 
   ::selection {
-    background: ${({ theme }) => theme.alpha.accent35};
+    background: ${({ theme }) => theme.alpha.accent24};
     color: ${({ theme }) => theme.misc.white};
   }
 

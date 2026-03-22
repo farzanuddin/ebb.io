@@ -17,7 +17,7 @@ export const HeroBanner = ({ movie, badge, primaryAction, onOpenDetails }) => {
   const rating = movie?.vote_average ? movie.vote_average.toFixed(1) : null;
 
   return (
-    <Hero style={{ backgroundImage: `linear-gradient(90deg, ${theme.alpha.dark92} 0%, ${theme.alpha.dark58} 48%, ${theme.alpha.dark08} 100%), url(${imageUrl})` }}>
+    <Hero style={{ backgroundImage: `linear-gradient(90deg, ${theme.alpha.dark98} 0%, ${theme.alpha.dark72} 48%, ${theme.alpha.dark06} 100%), url(${imageUrl})` }}>
       <TopMetaRow>
         <Badge>{badge}</Badge>
         <TagRow>
@@ -73,8 +73,7 @@ const Hero = styled.section`
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  border: 1px solid ${({ theme }) => theme.alpha.white08};
-  box-shadow: ${({ theme }) => theme.shadow.panel};
+  border: 1px solid ${({ theme }) => theme.alpha.white06};
   overflow: hidden;
 
   @media (max-width: 720px) {
@@ -110,7 +109,7 @@ const TagRow = styled.div`
 const Tag = styled.span`
   padding: 0.55rem 0.9rem;
   border-radius: ${({ theme }) => theme.borderRadius.pill};
-  background: ${({ theme }) => theme.alpha.white08};
+  background: ${({ theme }) => theme.alpha.white06};
   color: ${({ theme }) => theme.text.primary};
   font-size: ${({ theme }) => theme.fontSizes.sm};
 `;
@@ -140,7 +139,7 @@ const MetaPill = styled.span`
   gap: 0.5rem;
   padding: 0.65rem 1rem;
   border-radius: ${({ theme }) => theme.borderRadius.pill};
-  background: ${({ theme }) => theme.alpha.white08};
+  background: ${({ theme }) => theme.alpha.white06};
   color: ${({ theme }) => theme.text.primary};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: 700;
@@ -162,7 +161,6 @@ const PrimaryButton = styled.button`
   background: linear-gradient(135deg, ${({ theme }) => theme.accent.strong} 0%, ${({ theme }) => theme.accent.soft} 100%);
   color: ${({ theme }) => theme.misc.white};
   font-weight: 700;
-  box-shadow: 0 18px 32px ${({ theme }) => theme.alpha.accent22};
 `;
 
 const IconActionButton = styled.button`
@@ -172,12 +170,12 @@ const IconActionButton = styled.button`
   width: 4.4rem;
   height: 4.2rem;
   border-radius: ${({ theme }) => theme.borderRadius.md};
-  background: ${({ theme }) => theme.alpha.white08};
+  background: ${({ theme }) => theme.alpha.white06};
   color: ${({ theme }) => theme.text.primary};
   border: 1px solid ${({ theme }) => theme.alpha.white12};
 
   &:hover {
-    background: ${({ theme }) => theme.alpha.white14};
+    background: ${({ theme }) => theme.alpha.white12};
   }
 
   svg {

@@ -79,16 +79,14 @@ const Card = styled.button`
   border-radius: ${({ theme }) => theme.borderRadius.md};
   overflow: ${({ $showProgress }) => ($showProgress ? "hidden" : "visible")};
   height: ${({ $showProgress }) => ($showProgress ? "12.6rem" : "auto")};
-  background: ${({ theme }) => theme.alpha.navy92};
-  border: 1px solid ${({ theme }) => theme.alpha.white08};
-  box-shadow: ${({ theme }) => theme.shadow.soft};
+  background: ${({ theme }) => theme.alpha.navy88};
+  border: 1px solid ${({ theme }) => theme.alpha.white06};
   text-align: left;
   transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
 
   &:hover {
     border-color: ${({ theme }) => theme.alpha.white20};
-    background: ${({ theme }) => theme.alpha.dark96};
-    box-shadow: 0 0 0 1px ${({ theme }) => theme.alpha.white08}, 0 18px 36px ${({ theme }) => theme.alpha.dark32};
+    background: ${({ theme }) => theme.alpha.dark98};
   }
 
   @media (max-width: 720px) {
@@ -122,7 +120,7 @@ const RatingBadge = styled.span`
   gap: 0.5rem;
   padding: 0.6rem 0.85rem;
   border-radius: ${({ theme }) => theme.borderRadius.pill};
-  background: ${({ theme }) => theme.alpha.dark74};
+  background: ${({ theme }) => theme.alpha.dark72};
   color: ${({ theme }) => theme.misc.gold};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: 700;
@@ -134,7 +132,7 @@ const PosterOverlay = styled.div`
   right: 0;
   bottom: 0;
   padding: 0.95rem 1.2rem;
-  background: linear-gradient(180deg, transparent 0%, ${({ theme }) => theme.alpha.dark92} 92%);
+  background: linear-gradient(180deg, transparent 0%, ${({ theme }) => theme.alpha.dark98} 92%);
 `;
 
 const OverlayTitle = styled.p`
@@ -158,7 +156,7 @@ const ProgressTrack = styled.div`
   width: 100%;
   height: 0.55rem;
   border-radius: ${({ theme }) => theme.borderRadius.pill};
-  background: ${({ theme }) => theme.alpha.white14};
+  background: ${({ theme }) => theme.alpha.white12};
   overflow: hidden;
 `;
 

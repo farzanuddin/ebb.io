@@ -102,16 +102,14 @@ const Sidebar = styled.aside`
   min-height: 100%;
   padding: 2.4rem 1.8rem;
   border-radius: ${({ theme }) => theme.borderRadius.md};
-  background: linear-gradient(180deg, ${({ theme }) => theme.alpha.deep98} 0%, ${({ theme }) => theme.alpha.navy88} 100%);
-  border: 1px solid ${({ theme }) => theme.alpha.white08};
-  box-shadow: inset 0 1px 0 ${({ theme }) => theme.alpha.white05};
+  background: linear-gradient(180deg, ${({ theme }) => theme.alpha.dark98} 0%, ${({ theme }) => theme.alpha.navy88} 100%);
+  border: 1px solid ${({ theme }) => theme.alpha.white06};
 
   @media (max-width: 1100px) {
     min-height: 100vh;
     height: 100%;
     padding: 2.4rem 1.6rem;
     border-radius: 0;
-    box-shadow: none;
     border: none;
   }
 `;
@@ -165,7 +163,7 @@ const NavButton = styled.button`
   border-radius: ${({ theme }) => theme.borderRadius.md};
   background: ${({ $active, theme, 'data-label': dataLabel }) => {
     if ($active && dataLabel === "Home") {
-      return `linear-gradient(135deg, ${theme.alpha.sky68} 0%, ${theme.alpha.sky54} 100%)`;
+      return `linear-gradient(135deg, ${theme.alpha.sky54} 0%, ${theme.alpha.sky54} 100%)`;
     }
     return $active ? theme.accent.strong : "transparent";
   }};
@@ -175,7 +173,7 @@ const NavButton = styled.button`
 
   &[data-label]:not([data-label="Home"]):hover {
     color: ${({ theme }) => theme.text.primary};
-    background: ${({ theme }) => theme.alpha.white05};
+    background: ${({ theme }) => theme.alpha.white06};
   }
 
   svg {
@@ -213,7 +211,7 @@ const FooterButton = styled.button`
 
   &:hover {
     color: ${({ $danger, theme }) => ($danger ? theme.danger.soft : theme.text.primary)};
-    background: ${({ $danger, theme }) => ($danger ? theme.alpha.dangerSoft : theme.alpha.white05)};
+    background: ${({ $danger, theme }) => ($danger ? theme.alpha.dangerSoft : theme.alpha.white06)};
   }
 
   span {

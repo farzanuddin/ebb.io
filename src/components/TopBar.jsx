@@ -50,8 +50,7 @@ const Bar = styled.div`
   padding: 1.1rem 1.6rem;
   border-radius: ${({ theme }) => theme.borderRadius.md};
   background: ${({ theme }) => theme.alpha.navy88};
-  border: 1px solid ${({ theme }) => theme.alpha.white08};
-  box-shadow: ${({ theme }) => theme.shadow.soft};
+  border: 1px solid ${({ theme }) => theme.alpha.white06};
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
 
@@ -101,13 +100,11 @@ const SearchSection = styled.div`
   &:focus-visible,
   &:focus-within {
     outline: none !important;
-    box-shadow: none !important;
   }
 
   &:focus-within {
     outline: 2.5px solid ${({ theme }) => theme.misc.blue};
     outline-offset: 2px;
-    box-shadow: 0 0 0 2px ${({ theme }) => theme.alpha.accentGlow};
   }
 
   @media (max-width: 1100px) {
@@ -129,7 +126,6 @@ const Input = styled.input`
   }
   &:focus-visible {
     outline: none !important;
-    box-shadow: none !important;
     outline-offset: 0 !important;
   }
 `;

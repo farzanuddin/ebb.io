@@ -41,7 +41,7 @@ export const SearchResultsPanel = ({
             <ResultButton key={movie.id} onClick={() => onSelectMovie(movie)}>
               <Poster
                 style={{
-                  backgroundImage: `linear-gradient(180deg, ${theme.alpha.dark08} 0%, ${theme.alpha.dark32} 100%), url(${getImageUrl(movie.poster_path || movie.backdrop_path)})`,
+                  backgroundImage: `linear-gradient(180deg, ${theme.alpha.dark06} 0%, ${theme.alpha.dark32} 100%), url(${getImageUrl(movie.poster_path || movie.backdrop_path)})`,
                 }}
               />
               <ResultBody>
@@ -82,8 +82,7 @@ const Panel = styled.div`
   background: ${({ theme }) => theme.alpha.navy88};
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  border: 1px solid ${({ theme }) => theme.alpha.white08};
-  box-shadow: ${({ theme }) => theme.shadow.soft};
+  border: 1px solid ${({ theme }) => theme.alpha.white06};
 
   &::-webkit-scrollbar {
     width: 0;
