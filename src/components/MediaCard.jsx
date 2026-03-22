@@ -75,7 +75,7 @@ MediaCard.propTypes = {
 const Card = styled.button`
   min-width: ${({ $showProgress }) => ($showProgress ? "25.5rem" : "23rem")};
   padding: 0;
-  border-radius: ${({ theme }) => theme.radii.xl};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   overflow: visible;
   /* Fix the total card height for continue-watching cards so they don't grow
      with very wide viewports */
@@ -99,8 +99,8 @@ const Poster = styled.div`
   background-color: ${({ theme }) => theme.surface.elevated};
   background-position: center;
   background-size: cover;
-  border-top-left-radius: ${({ theme }) => theme.radii.xl};
-  border-top-right-radius: ${({ theme }) => theme.radii.xl};
+  border-top-left-radius: ${({ theme }) => theme.borderRadius.md};
+  border-top-right-radius: ${({ theme }) => theme.borderRadius.md};
   overflow: hidden;
 `;
 
@@ -112,7 +112,7 @@ const RatingBadge = styled.span`
   align-items: center;
   gap: 0.5rem;
   padding: 0.6rem 0.85rem;
-  border-radius: ${({ theme }) => theme.radii.pill};
+  border-radius: ${({ theme }) => theme.borderRadius.pill};
   background: rgba(4, 24, 38, 0.74);
   color: ${({ theme }) => theme.misc.gold};
   font-size: 1.15rem;
@@ -150,14 +150,14 @@ const OverlayMeta = styled.p`
 const ProgressTrack = styled.div`
   width: 100%;
   height: 0.55rem;
-  border-radius: ${({ theme }) => theme.radii.pill};
+  border-radius: ${({ theme }) => theme.borderRadius.pill};
   background: rgba(255, 255, 255, 0.14);
   overflow: hidden;
 `;
 
 const ProgressFill = styled.div`
   height: 100%;
-  border-radius: ${({ theme }) => theme.radii.pill};
+  border-radius: ${({ theme }) => theme.borderRadius.pill};
   background: linear-gradient(90deg, ${({ theme }) => theme.accent.soft} 0%, ${({ theme }) => theme.accent.strong} 100%);
 `;
 
@@ -195,7 +195,7 @@ const GenreRow = styled.div`
 
 const GenrePill = styled.span`
   padding: 0.45rem 0.75rem;
-  border-radius: ${({ theme }) => theme.radii.pill};
+  border-radius: ${({ theme }) => theme.borderRadius.pill};
   background: rgba(255, 255, 255, 0.06);
   color: ${({ theme }) => theme.text.secondary};
   font-size: 1.1rem;

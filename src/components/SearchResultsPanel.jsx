@@ -80,7 +80,7 @@ const Panel = styled.div`
   overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  border-radius: ${({ theme }) => theme.radii.xl};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   background: rgba(8, 34, 51, 0.88);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: ${({ theme }) => theme.shadow.soft};
@@ -93,7 +93,7 @@ const Panel = styled.div`
 
   &::-webkit-scrollbar-thumb {
     background: transparent;
-    border-radius: ${({ theme }) => theme.radii.pill};
+    border-radius: ${({ theme }) => theme.borderRadius.pill};
   }
 `;
 
@@ -126,7 +126,7 @@ const ResultButton = styled.button`
   align-items: center;
   width: 100%;
   padding: 0.8rem;
-  border-radius: ${({ theme }) => theme.radii.md};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   text-align: left;
 
   &:hover {
@@ -137,7 +137,7 @@ const ResultButton = styled.button`
 const Poster = styled.div`
   width: 5.6rem;
   height: 7.2rem;
-  border-radius: ${({ theme }) => theme.radii.sm};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   background-color: ${({ theme }) => theme.surface.muted};
   background-size: cover;
   background-position: center;

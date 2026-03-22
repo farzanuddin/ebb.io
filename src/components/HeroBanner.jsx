@@ -65,7 +65,7 @@ const Hero = styled.section`
   gap: 1rem;
   min-height: clamp(26rem, 44vh, 34rem);
   padding: clamp(2.2rem, 3vw, 3rem);
-  border-radius: ${({ theme }) => theme.radii.xxl};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   background-color: ${({ theme }) => theme.surface.elevated};
   background-position: center top;
   background-size: cover;
@@ -81,7 +81,7 @@ const Hero = styled.section`
 
 const Badge = styled.span`
   padding: 0.65rem 1rem;
-  border-radius: ${({ theme }) => theme.radii.pill};
+  border-radius: ${({ theme }) => theme.borderRadius.pill};
   background: rgba(255, 171, 87, 0.18);
   color: ${({ theme }) => theme.misc.gold};
   font-size: 1.2rem;
@@ -104,7 +104,7 @@ const TagRow = styled.div`
 
 const Tag = styled.span`
   padding: 0.55rem 0.9rem;
-  border-radius: ${({ theme }) => theme.radii.pill};
+  border-radius: ${({ theme }) => theme.borderRadius.pill};
   background: rgba(255, 255, 255, 0.08);
   color: ${({ theme }) => theme.text.primary};
   font-size: 1.15rem;
@@ -138,7 +138,7 @@ const MetaPill = styled.span`
   align-items: center;
   gap: 0.5rem;
   padding: 0.65rem 1rem;
-  border-radius: ${({ theme }) => theme.radii.pill};
+  border-radius: ${({ theme }) => theme.borderRadius.pill};
   background: rgba(255, 255, 255, 0.08);
   color: ${({ theme }) => theme.text.primary};
   font-size: 1.2rem;
@@ -157,7 +157,7 @@ const PrimaryButton = styled.button`
   align-items: center;
   gap: 0.9rem;
   padding: 0.95rem 1.35rem;
-  border-radius: ${({ theme }) => theme.radii.lg};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   background: linear-gradient(135deg, ${({ theme }) => theme.accent.strong} 0%, ${({ theme }) => theme.accent.soft} 100%);
   color: ${({ theme }) => theme.misc.white};
   font-weight: 700;
@@ -170,7 +170,7 @@ const IconActionButton = styled.button`
   justify-content: center;
   width: 4.4rem;
   height: 4.2rem;
-  border-radius: ${({ theme }) => theme.radii.lg};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   background: rgba(255, 255, 255, 0.08);
   color: ${({ theme }) => theme.text.primary};
   border: 1px solid rgba(255, 255, 255, 0.12);

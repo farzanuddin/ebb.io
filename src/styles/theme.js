@@ -25,14 +25,10 @@ export const theme = {
     panel: "0 28px 60px rgba(6, 6, 14, 0.42)",
     soft: "0 18px 32px rgba(8, 8, 17, 0.28)",
   },
-  radii: {
+  borderRadius: {
     pill: "999px",
     circle: "50%",
-    sm: "0.9rem",
     md: "1rem",
-    lg: "1.1rem",
-    xl: "1.4rem",
-    xxl: "2.1rem",
   },
   fonts: {
     body: '"Manrope", sans-serif',

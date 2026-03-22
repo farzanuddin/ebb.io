@@ -80,7 +80,7 @@ const CardRow = styled.div`
 
   &::-webkit-scrollbar-thumb {
     background: transparent;
-    border-radius: ${({ theme }) => theme.radii.pill};
+    border-radius: ${({ theme }) => theme.borderRadius.pill};
   }
 
   @media (max-width: 720px) {

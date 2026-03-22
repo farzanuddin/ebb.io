@@ -95,7 +95,7 @@ const Sidebar = styled.aside`
   gap: 3.2rem;
   min-height: 100%;
   padding: 2.4rem 1.8rem;
-  border-radius: ${({ theme }) => theme.radii.xxl};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   background: linear-gradient(180deg, rgba(6, 33, 53, 0.96) 0%, rgba(8, 42, 64, 0.88) 100%);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
@@ -153,7 +153,7 @@ const NavButton = styled.button`
   gap: 1rem;
   width: 100%;
   padding: 1.15rem 1.2rem;
-  border-radius: ${({ theme }) => theme.radii.lg};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   background: ${({ $active, theme, 'data-label': dataLabel }) => {
         if ($active && dataLabel === "Home") {
             return `linear-gradient(135deg, rgba(22,182,217,0.68) 0%, rgba(31,127,214,0.54) 100%)`;
@@ -200,7 +200,7 @@ const FooterButton = styled.button`
   gap: 1rem;
   width: 100%;
   padding: 1rem 1.2rem;
-  border-radius: ${({ theme }) => theme.radii.md};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   color: ${({ theme }) => theme.text.secondary};
   background: transparent;
 

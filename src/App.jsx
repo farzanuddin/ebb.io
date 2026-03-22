@@ -387,7 +387,7 @@ const BellWrapper = styled.div`
   width: 3.9rem;
   height: 3.9rem;
   cursor: pointer;
-  border-radius: ${({ theme }) => theme.radii.circle};
+  border-radius: ${({ theme }) => theme.borderRadius.circle};
   background: transparent;
   color: ${({ theme }) => theme.text.secondary};
 
@@ -403,7 +403,7 @@ const NotificationDot = styled.span`
   right: 0.7rem;
   width: 0.85rem;
   height: 0.85rem;
-  border-radius: ${({ theme }) => theme.radii.circle};
+  border-radius: ${({ theme }) => theme.borderRadius.circle};
   background: #ff4d4f;
   box-shadow: 0 0 0 0 rgba(255,77,79,0.7);
   animation: pulse 1.2s infinite;
@@ -420,7 +420,7 @@ const Avatar = styled.div`
   place-items: center;
   width: 3.9rem;
   height: 3.9rem;
-  border-radius: ${({ theme }) => theme.radii.circle};
+  border-radius: ${({ theme }) => theme.borderRadius.circle};
   background: ${({ theme }) => theme.accent.strong};
   color: ${({ theme }) => theme.misc.white};
   font-size: 1.7rem;
@@ -459,7 +459,7 @@ const ContentStack = styled.div`
 
   &::-webkit-scrollbar-thumb {
     background: transparent;
-    border-radius: ${({ theme }) => theme.radii.pill};
+    border-radius: ${({ theme }) => theme.borderRadius.pill};
   }
 
   @media (max-width: 1100px) {
@@ -473,7 +473,7 @@ const StateCard = styled.div`
   align-items: center;
   gap: 1.2rem;
   padding: 1.8rem;
-  border-radius: ${({ theme }) => theme.radii.xl};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   background: rgba(8, 34, 51, 0.82);
   border: 1px solid rgba(255, 255, 255, 0.08);
 
@@ -499,7 +499,7 @@ const AmbientGlow = styled.div`
   position: absolute;
   width: 42rem;
   height: 42rem;
-  border-radius: ${({ theme }) => theme.radii.circle};
+  border-radius: ${({ theme }) => theme.borderRadius.circle};
   filter: blur(18px);
   opacity: 0.65;
   pointer-events: none;

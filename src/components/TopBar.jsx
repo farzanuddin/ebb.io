@@ -51,7 +51,7 @@ const Bar = styled.div`
   width: 100%;
   max-width: 44rem;
   padding: 1.1rem 1.6rem;
-  border-radius: ${({ theme }) => theme.radii.lg};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   background: rgba(8, 34, 51, 0.88);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: ${({ theme }) => theme.shadow.soft};
@@ -64,7 +64,7 @@ const SearchSection = styled.div`
   gap: 1.2rem;
   max-width: 44rem;
   width: 100%;
-  border-radius: ${({ theme }) => theme.radii.lg};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
 
     padding: 0.35rem;
     

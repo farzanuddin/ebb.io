@@ -145,7 +145,7 @@ const ContinueWatchingButton = styled.button`
   align-items: center;
   gap: 0.8rem;
   padding: 1rem 1.4rem;
-  border-radius: ${({ theme }) => theme.radii.md};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   background: ${({ theme }) => theme.accent.strong};
   color: ${({ theme }) => theme.misc.white};
   font-size: 1.35rem;
@@ -176,7 +176,7 @@ const DrawerShell = styled.div`
 
   &::-webkit-scrollbar-thumb {
     background: transparent;
-    border-radius: ${({ theme }) => theme.radii.pill};
+    border-radius: ${({ theme }) => theme.borderRadius.pill};
   }
 `;
 
@@ -201,7 +201,7 @@ const CloseButton = styled.button`
   place-items: center;
   width: 4rem;
   height: 4rem;
-  border-radius: ${({ theme }) => theme.radii.md};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   background: rgba(255, 255, 255, 0.06);
 `;
 
@@ -213,7 +213,7 @@ const StateMessage = styled.p`
 const HeroImage = styled.div`
   position: relative;
   height: 24rem;
-  border-radius: ${({ theme }) => theme.radii.xxl};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   background-color: ${({ theme }) => theme.surface.muted};
   background-position: center;
   background-size: cover;
@@ -228,7 +228,7 @@ const ScoreBadge = styled.span`
   align-items: center;
   gap: 0.55rem;
   padding: 0.7rem 0.95rem;
-  border-radius: ${({ theme }) => theme.radii.pill};
+  border-radius: ${({ theme }) => theme.borderRadius.pill};
   background: rgba(4, 24, 38, 0.72);
   color: ${({ theme }) => theme.misc.gold};
   font-size: 1.2rem;
@@ -264,7 +264,7 @@ const MetaPill = styled.span`
   align-items: center;
   gap: 0.55rem;
   padding: 0.7rem 1rem;
-  border-radius: ${({ theme }) => theme.radii.pill};
+  border-radius: ${({ theme }) => theme.borderRadius.pill};
   background: rgba(255, 255, 255, 0.06);
   color: ${({ theme }) => theme.text.primary};
   font-size: 1.2rem;
@@ -279,7 +279,7 @@ const GenreRow = styled.div`
 
 const GenrePill = styled.span`
   padding: 0.55rem 0.85rem;
-  border-radius: ${({ theme }) => theme.radii.pill};
+  border-radius: ${({ theme }) => theme.borderRadius.pill};
   background: rgba(255, 255, 255, 0.06);
   color: ${({ theme }) => theme.text.secondary};
   font-size: 1.15rem;
@@ -301,7 +301,7 @@ const ActionLink = styled.a`
   align-items: center;
   gap: 0.8rem;
   padding: 1rem 1.4rem;
-  border-radius: ${({ theme }) => theme.radii.md};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   background: linear-gradient(135deg, ${({ theme }) => theme.accent.strong} 0%, ${({ theme }) => theme.accent.soft} 100%);
   color: ${({ theme }) => theme.misc.white};
   font-size: 1.35rem;
@@ -316,7 +316,7 @@ const MutedAction = styled.span`
   display: inline-flex;
   align-items: center;
   padding: 1rem 1.4rem;
-  border-radius: ${({ theme }) => theme.radii.md};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   background: rgba(255, 255, 255, 0.06);
   color: ${({ theme }) => theme.text.tertiary};
   font-size: 1.35rem;
@@ -345,14 +345,14 @@ const CastCard = styled.div`
   gap: 1rem;
   align-items: center;
   padding: 0.8rem;
-  border-radius: ${({ theme }) => theme.radii.md};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   background: rgba(255, 255, 255, 0.04);
 `;
 
 const CastAvatar = styled.div`
   width: 5.2rem;
   height: 5.2rem;
-  border-radius: ${({ theme }) => theme.radii.sm};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   background-color: ${({ theme }) => theme.surface.muted};
   background-position: center;
   background-size: cover;
