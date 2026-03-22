@@ -3,6 +3,7 @@ import * as styled from "styled-components";
 export const GlobalStyles = styled.createGlobalStyle`
   html {
     font-size: 62.5%;
+    font-family: ${({ theme }) => theme.fonts.body};
     box-sizing: border-box;
     scroll-behavior: smooth;
   }
@@ -17,7 +18,6 @@ export const GlobalStyles = styled.createGlobalStyle`
   }
 
   body {
-    font-family: ${({ theme }) => theme.fonts.body};
     font-size: 1.6rem;
     min-height: 100vh;
     overflow: hidden;

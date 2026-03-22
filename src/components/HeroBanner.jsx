@@ -112,10 +112,6 @@ const Tag = styled.span`
 
 const Title = styled.h1`
   max-width: 56rem;
-  font-family: ${({ theme }) => theme.fonts.display};
-  font-size: clamp(2.6rem, 3.9vw, 4.2rem);
-  line-height: 1.04;
-  letter-spacing: -0.04em;
   color: ${({ theme }) => theme.text.primary};
   overflow-wrap: anywhere;
 `;

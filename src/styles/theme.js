@@ -31,7 +31,6 @@ export const theme = {
     md: "1rem",
   },
   fonts: {
-    body: '"Manrope", sans-serif',
-    display: '"Syne", sans-serif',
+    body: "sans-serif",
   },
 };

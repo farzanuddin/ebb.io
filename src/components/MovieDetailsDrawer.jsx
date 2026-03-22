@@ -241,7 +241,6 @@ const ContentStack = styled.div`
 
 const Title = styled.h2`
   color: ${({ theme }) => theme.text.primary};
-  font-family: ${({ theme }) => theme.fonts.display};
   font-size: 3.2rem;
   line-height: 0.98;
 `;
