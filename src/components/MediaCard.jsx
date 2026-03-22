@@ -119,25 +119,7 @@ const RatingBadge = styled.span`
   font-weight: 700;
 `;
 
-const FullArtOverlay = styled.div`
-  position: absolute;
-  left: 1.4rem;
-  right: 1.4rem;
-  bottom: 1.4rem;
-  color: ${({ theme }) => theme.misc.white};
-  text-shadow: 0 6px 24px rgba(3, 19, 31, 0.6);
-`;
-
-const FullArtTitle = styled.p`
-  font-size: 2rem;
-  font-weight: 800;
-  margin-bottom: 0.4rem;
-`;
-
-const FullArtMeta = styled.p`
-  font-size: 1.15rem;
-  color: ${({ theme }) => theme.text.tertiary};
-`;
+/* Full-art variant removed — keeping poster overlay only */
 
 const PosterOverlay = styled.div`
   position: absolute;

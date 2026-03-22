@@ -18,7 +18,7 @@ const Input = styled.input`
 
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { SearchOutlined, BellOutlined, UserOutlined } from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
 
 export const TopBar = ({ placeholder, searchValue, onSearchChange }) => {
   return (
