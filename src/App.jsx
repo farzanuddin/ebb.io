@@ -43,13 +43,11 @@ const App = () => {
       try {
         setStatus({ loading: true, error: "" });
 
-        // Fetch featured and dashboard sections in parallel
         const [featuredResponse, ...sectionResponses] = await Promise.all([
           getMoviesWithGenres(FEATURED_COLLECTION.endpoint),
           ...DASHBOARD_SECTIONS.map((section) => getMoviesWithGenres(section.endpoint)),
         ]);
 
-        // Fetch static movies for Continue Watching by ID
         const staticContinueWatchingIds = [20526, 673, 68734, 76341];
         const staticContinueWatching = await Promise.all(
           staticContinueWatchingIds.map((id) => getMovieDetails(id))

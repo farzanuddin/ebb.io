@@ -22,8 +22,6 @@ export const MovieDetailsDrawer = ({
 }) => {
     const backdropUrl = getImageUrl(movie?.backdrop_path || movie?.poster_path);
     const trailerUrl = movie?.trailer?.key ? `https://www.youtube.com/watch?v=${movie.trailer.key}` : "";
-
-    // Only show Continue Watching button for these movie IDs
     const continueWatchingIds = [20526, 673, 68734, 76341];
     const showContinueWatching = movie && continueWatchingIds.includes(movie.id);
     const showWatchNow = movie && !continueWatchingIds.includes(movie.id);

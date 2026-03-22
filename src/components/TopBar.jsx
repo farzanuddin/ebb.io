@@ -81,5 +81,3 @@ const SearchSection = styled.div`
       box-shadow: 0 0 0 2px rgba(102, 215, 255, 0.18);
     }
 `;
-
-/* Actions moved to App layout (top-right) */

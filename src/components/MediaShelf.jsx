@@ -60,7 +60,6 @@ const CardRow = styled.div`
   grid-auto-flow: column;
   grid-auto-columns: ${({ $showProgress, $sectionKey }) => {
     if ($showProgress) return "minmax(25rem, 25rem)";
-    // For recently released and top rated, prevent infinite stretching
     if ($sectionKey === "recentlyReleased" || $sectionKey === "topRated")
       return "minmax(22rem, 22rem)";
     return "minmax(22rem, 1fr)";

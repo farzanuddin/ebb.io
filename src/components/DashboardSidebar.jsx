@@ -164,13 +164,11 @@ const NavButton = styled.button`
   border: none;
   transition: transform 180ms ease, background 180ms ease, color 180ms ease;
 
-  /* Use the same hover state as FooterButton for all buttons except the Home button */
   &[data-label]:not([data-label="Home"]):hover {
     color: ${({ theme }) => theme.text.primary};
     background: rgba(255, 255, 255, 0.05);
   }
 
-  /* Icons inherit the button color and transition smoothly */
   svg {
     font-size: 1.6rem;
     color: currentColor;
