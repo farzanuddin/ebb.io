@@ -1,22 +1,34 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { useRef } from "react";
 import { APP_COPY } from "../constants";
-import { SearchOutlined } from "@ant-design/icons";
+import { MenuOutlined, SearchOutlined } from "@ant-design/icons";
 
-export const TopBar = ({ placeholder, searchValue, onSearchChange }) => {
+export const TopBar = ({ placeholder, searchValue, onSearchChange, onToggleSidebar, rightActions }) => {
+  const inputRef = useRef(null);
+
   return (
-    <Bar>
-      <SearchSection>
-        <SearchOutlined />
-        <Input
-          type="text"
-          placeholder={placeholder}
-          value={searchValue}
-          onChange={e => onSearchChange(e.target.value)}
-          aria-label={APP_COPY.searchAriaLabel}
-        />
-      </SearchSection>
-    </Bar>
+    <>
+      <Bar>
+        <LeftSection>
+          <Hamburger aria-label={APP_COPY.menuLabel} onClick={onToggleSidebar}>
+            <MenuOutlined />
+          </Hamburger>
+          <SearchSection onClick={() => inputRef.current && inputRef.current.focus()}>
+            <SearchOutlined />
+            <Input
+              ref={inputRef}
+              type="text"
+              placeholder={placeholder}
+              value={searchValue}
+              onChange={e => onSearchChange(e.target.value)}
+              aria-label={APP_COPY.searchAriaLabel}
+            />
+          </SearchSection>
+        </LeftSection>
+        <RightActions>{rightActions}</RightActions>
+      </Bar>
+    </>
   );
 };
 
@@ -24,6 +36,8 @@ TopBar.propTypes = {
   placeholder: PropTypes.string,
   searchValue: PropTypes.string,
   onSearchChange: PropTypes.func,
+  onToggleSidebar: PropTypes.func,
+  rightActions: PropTypes.node,
 };
 
 const Bar = styled.div`
@@ -38,6 +52,39 @@ const Bar = styled.div`
   background: ${({ theme }) => theme.alpha.navy88};
   border: 1px solid ${({ theme }) => theme.alpha.white08};
   box-shadow: ${({ theme }) => theme.shadow.soft};
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  @media (max-width: 1100px) {
+    max-width: none;
+    padding: 0.8rem 0.6rem;
+  }
+  @media (min-width: 1101px) {
+    padding-right: 6rem;
+  }
+`;
+
+const LeftSection = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex: 1;
+`;
+
+const RightActions = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+
+  position: absolute;
+  top: 0.35rem;
+  right: 0;
+  z-index: 6;
+
+  @media (max-width: 1100px) {
+    position: static;
+    flex-shrink: 0;
+  }
 `;
 
 const SearchSection = styled.div`
@@ -48,21 +95,25 @@ const SearchSection = styled.div`
   max-width: 44rem;
   width: 100%;
   border-radius: ${({ theme }) => theme.borderRadius.md};
+  padding: 0.35rem;
 
-    padding: 0.35rem;
-    
-    &:focus,
-    &:focus-visible,
-    &:focus-within {
-      outline: none !important;
-      box-shadow: none !important;
+  &:focus,
+  &:focus-visible,
+  &:focus-within {
+    outline: none !important;
+    box-shadow: none !important;
   }
-    
-    &:focus-within {
-      outline: 2.5px solid ${({ theme }) => theme.misc.blue};
-      outline-offset: 2px;
-      box-shadow: 0 0 0 2px ${({ theme }) => theme.alpha.accentGlow};
-    }
+
+  &:focus-within {
+    outline: 2.5px solid ${({ theme }) => theme.misc.blue};
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px ${({ theme }) => theme.alpha.accentGlow};
+  }
+
+  @media (max-width: 1100px) {
+    max-width: none;
+    margin-left: 0.2rem;
+  }
 `;
 
 const Input = styled.input`
@@ -80,5 +131,21 @@ const Input = styled.input`
     outline: none !important;
     box-shadow: none !important;
     outline-offset: 0 !important;
+  }
+`;
+
+const Hamburger = styled.button`
+  display: none;
+  background: none;
+  border: none;
+  color: ${({ theme }) => theme.text.primary};
+  font-size: 2rem;
+  width: 3.4rem;
+  height: 3.4rem;
+  place-items: center;
+  margin-right: 0.4rem;
+
+  @media (max-width: 1100px) {
+    display: grid;
   }
 `;

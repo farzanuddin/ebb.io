@@ -77,8 +77,8 @@ const Card = styled.button`
   min-width: ${({ $showProgress }) => ($showProgress ? "25.5rem" : "23rem")};
   padding: 0;
   border-radius: ${({ theme }) => theme.borderRadius.md};
-  overflow: visible;
-  height: ${({ $showProgress }) => ($showProgress ? "12rem" : "auto")};
+  overflow: ${({ $showProgress }) => ($showProgress ? "hidden" : "visible")};
+  height: ${({ $showProgress }) => ($showProgress ? "12.6rem" : "auto")};
   background: ${({ theme }) => theme.alpha.navy92};
   border: 1px solid ${({ theme }) => theme.alpha.white08};
   box-shadow: ${({ theme }) => theme.shadow.soft};
@@ -90,6 +90,12 @@ const Card = styled.button`
     background: ${({ theme }) => theme.alpha.dark96};
     box-shadow: 0 0 0 1px ${({ theme }) => theme.alpha.white08}, 0 18px 36px ${({ theme }) => theme.alpha.dark32};
   }
+
+  @media (max-width: 720px) {
+    min-width: auto;
+    width: 100%;
+    max-width: 100%;
+  }
 `;
 
 const Poster = styled.div`
@@ -100,6 +106,10 @@ const Poster = styled.div`
   background-size: cover;
   border-top-left-radius: ${({ theme }) => theme.borderRadius.md};
   border-top-right-radius: ${({ theme }) => theme.borderRadius.md};
+  ${({ $showProgress, theme }) =>
+    $showProgress
+      ? `border-bottom-left-radius: ${theme.borderRadius.md}; border-bottom-right-radius: ${theme.borderRadius.md};`
+      : ""};
   overflow: hidden;
 `;
 

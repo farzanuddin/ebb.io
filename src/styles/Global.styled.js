@@ -29,6 +29,13 @@ export const GlobalStyles = styled.createGlobalStyle`
     color: ${({ theme }) => theme.text.primary};
   }
 
+  @media (max-width: 1100px) {
+    body {
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+
   #root {
     min-height: 100vh;
   }

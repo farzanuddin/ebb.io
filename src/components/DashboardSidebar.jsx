@@ -25,7 +25,7 @@ const iconMap = {
   download: DownloadOutlined,
 };
 
-const SidebarGroup = ({ title, items }) => (
+const SidebarGroup = ({ title, items, onNavigate }) => (
   <LinkGroup>
     {title ? <GroupLabel>{title}</GroupLabel> : null}
     <NavList>
@@ -34,7 +34,11 @@ const SidebarGroup = ({ title, items }) => (
 
         return (
           <li key={item.key}>
-            <NavButton $active={item.active} data-label={item.label}>
+            <NavButton
+              $active={item.active}
+              data-label={item.label}
+              onClick={() => onNavigate && onNavigate(item)}
+            >
               <Icon />
               <span>{item.label}</span>
             </NavButton>
@@ -45,7 +49,7 @@ const SidebarGroup = ({ title, items }) => (
   </LinkGroup>
 );
 
-export const DashboardSidebar = ({ brand, primaryLinks, libraryLinks }) => {
+export const DashboardSidebar = ({ brand, primaryLinks, libraryLinks, onNavigate }) => {
   return (
     <Sidebar>
       <BrandLockup>
@@ -54,8 +58,8 @@ export const DashboardSidebar = ({ brand, primaryLinks, libraryLinks }) => {
       </BrandLockup>
 
       <SidebarStack>
-        <SidebarGroup items={primaryLinks} />
-        <SidebarGroup title={APP_COPY.sidebarLibraryTitle} items={libraryLinks} />
+        <SidebarGroup items={primaryLinks} onNavigate={onNavigate} />
+        <SidebarGroup title={APP_COPY.sidebarLibraryTitle} items={libraryLinks} onNavigate={onNavigate} />
       </SidebarStack>
 
       <FooterActions>
@@ -88,6 +92,7 @@ DashboardSidebar.propTypes = {
   brand: PropTypes.string,
   primaryLinks: PropTypes.array.isRequired,
   libraryLinks: PropTypes.array.isRequired,
+  onNavigate: PropTypes.func,
 };
 
 const Sidebar = styled.aside`
@@ -102,7 +107,12 @@ const Sidebar = styled.aside`
   box-shadow: inset 0 1px 0 ${({ theme }) => theme.alpha.white05};
 
   @media (max-width: 1100px) {
-    min-height: auto;
+    min-height: 100vh;
+    height: 100%;
+    padding: 2.4rem 1.6rem;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
   }
 `;
 

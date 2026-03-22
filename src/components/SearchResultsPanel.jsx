@@ -24,10 +24,6 @@ export const SearchResultsPanel = ({
 
   return (
     <Panel>
-      <PanelHeader>
-        <SearchOutlined />
-        <span>{APP_COPY.searchLabel}</span>
-      </PanelHeader>
 
       {!canSearch ? <PanelText>{hint}</PanelText> : null}
       {canSearch && isLoading ? (
@@ -84,6 +80,8 @@ const Panel = styled.div`
   -ms-overflow-style: none;
   border-radius: ${({ theme }) => theme.borderRadius.md};
   background: ${({ theme }) => theme.alpha.navy88};
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   border: 1px solid ${({ theme }) => theme.alpha.white08};
   box-shadow: ${({ theme }) => theme.shadow.soft};
 
@@ -99,14 +97,7 @@ const Panel = styled.div`
   }
 `;
 
-const PanelHeader = styled.div`
-  display: inline-flex;
-  align-items: center;
-  gap: 0.8rem;
-  color: ${({ theme }) => theme.text.primary};
-  font-size: ${({ theme }) => theme.fontSizes.md};
-  font-weight: 700;
-`;
+/* PanelHeader removed per design: header text removed from search results */
 
 const PanelText = styled.p`
   display: inline-flex;

@@ -1,4 +1,4 @@
-import { startTransition, useDeferredValue, useEffect, useState } from "react";
+import { startTransition, useDeferredValue, useEffect, useState, useRef } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { LoadingOutlined, WarningOutlined } from "@ant-design/icons";
 import { BellOutlined, UserOutlined } from "@ant-design/icons";
@@ -21,6 +21,8 @@ import {
 } from "./components";
 import { GlobalStyles } from "./styles/Global.styled";
 import { theme } from "./styles/theme";
+import Drawer from "react-modern-drawer";
+import "react-modern-drawer/dist/index.css";
 
 const App = () => {
   const [featuredMovie, setFeaturedMovie] = useState(null);
@@ -35,6 +37,41 @@ const App = () => {
     error: "",
     movie: null,
   });
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const [drawerSize, setDrawerSize] = useState(() =>
+    typeof window !== "undefined" && window.innerWidth <= 1100 ? "100vw" : "min(86%, 34rem)"
+  );
+
+  useEffect(() => {
+    const onResize = () => {
+      setDrawerSize(window.innerWidth <= 1100 ? "100vw" : "min(86%, 34rem)");
+    };
+
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  const bodyOverflowRef = useRef(null);
+
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+
+    const shouldLock = isMobileSidebarOpen || drawerState.isOpen;
+
+    if (shouldLock) {
+      if (bodyOverflowRef.current === null) {
+        bodyOverflowRef.current = document.body.style.overflow;
+      }
+      document.body.style.overflow = "hidden";
+    } else {
+      if (bodyOverflowRef.current !== null) {
+        document.body.style.overflow = bodyOverflowRef.current;
+        bodyOverflowRef.current = null;
+      } else {
+        document.body.style.overflow = "";
+      }
+    }
+  }, [isMobileSidebarOpen, drawerState.isOpen]);
 
   useEffect(() => {
     let isMounted = true;
@@ -209,16 +246,19 @@ const App = () => {
                 placeholder={APP_COPY.searchPlaceholder}
                 searchValue={searchValue}
                 onSearchChange={setSearchValue}
+                onToggleSidebar={() => setIsMobileSidebarOpen((s) => !s)}
+                rightActions={
+                  <>
+                    <BellWrapper aria-label="Notifications">
+                      <BellOutlined style={{ fontSize: "1.9rem" }} />
+                      <NotificationDot />
+                    </BellWrapper>
+                    <Avatar>
+                      <UserOutlined />
+                    </Avatar>
+                  </>
+                }
               />
-              <TopActions>
-                <BellWrapper aria-label="Notifications">
-                  <BellOutlined style={{ fontSize: "1.9rem" }} />
-                  <NotificationDot />
-                </BellWrapper>
-                <Avatar>
-                  <UserOutlined />
-                </Avatar>
-              </TopActions>
               <SearchOverlay>
                 <SearchResultsPanel
                   query={searchValue}
@@ -276,6 +316,20 @@ const App = () => {
             ) : null}
           </MainPanel>
         </DashboardShell>
+        <Drawer
+          open={isMobileSidebarOpen}
+          onClose={() => setIsMobileSidebarOpen(false)}
+          direction="left"
+          size={drawerSize}
+          className="mobile-sidebar-drawer"
+        >
+          <DashboardSidebar
+            brand={APP_COPY.brand}
+            primaryLinks={SIDEBAR_PRIMARY_LINKS}
+            libraryLinks={SIDEBAR_LIBRARY_LINKS}
+            onNavigate={() => setIsMobileSidebarOpen(false)}
+          />
+        </Drawer>
         <MovieDetailsDrawer
           isOpen={drawerState.isOpen}
           onClose={handleCloseDrawer}
@@ -335,8 +389,7 @@ const SidebarColumn = styled.div`
   height: calc(100vh - 4.8rem);
 
   @media (max-width: 1100px) {
-    position: static;
-    height: auto;
+    display: none;
   }
 `;
 
@@ -359,22 +412,16 @@ const MainPanel = styled.main`
 const TopArea = styled.div`
   position: relative;
   z-index: 4;
-`;
-
-const TopActions = styled.div`
-  position: absolute;
-  top: 0.35rem;
-  right: 0;
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  z-index: 6;
 
   @media (max-width: 1100px) {
-    position: static;
-    margin-top: 0.6rem;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    padding-top: 0.6rem;
   }
 `;
+
+/* TopActions moved into TopBar as `rightActions` */
 
 const BellWrapper = styled.div`
   position: relative;
@@ -425,15 +472,15 @@ const Avatar = styled.div`
 
 const SearchOverlay = styled.div`
   position: absolute;
-  top: calc(100% + 1rem);
+  top: calc(100% + 0.6rem);
   left: 0;
   width: min(44rem, 100%);
-  z-index: 5;
+  z-index: 30;
 
   @media (max-width: 1100px) {
-    position: static;
+    top: calc(100% + 0.4rem);
+    left: 0;
     width: 100%;
-    margin-top: 1rem;
   }
 `;
 
@@ -493,7 +540,7 @@ const StateText = styled.p`
 `;
 
 const AmbientGlow = styled.div`
-  position: absolute;
+  position: fixed;
   width: 42rem;
   height: 42rem;
   border-radius: ${({ theme }) => theme.borderRadius.circle};

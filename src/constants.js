@@ -63,6 +63,7 @@ export const APP_COPY = {
   errorSearchUnavailable: "Search is unavailable right now.",
   errorLoadDetails: "Unable to load movie details.",
   appLogoAlt: "App logo",
+  menuLabel: "Menu",
   detailsAction: "Watch Trailer",
   detailsFallback: "No trailer available",
 };

@@ -70,6 +70,8 @@ const Hero = styled.section`
   border-radius: ${({ theme }) => theme.borderRadius.md};
   background-color: ${({ theme }) => theme.surface.elevated};
   background-position: center top;
+  background-position: center center;
+  background-repeat: no-repeat;
   background-size: cover;
   border: 1px solid ${({ theme }) => theme.alpha.white08};
   box-shadow: ${({ theme }) => theme.shadow.panel};
@@ -78,6 +80,7 @@ const Hero = styled.section`
   @media (max-width: 720px) {
     min-height: 28rem;
     padding: 2.4rem;
+    background-position: center top;
   }
 `;
 
