@@ -49,7 +49,7 @@ export const DashboardSidebar = ({ primaryLinks, libraryLinks }) => {
     return (
         <Sidebar>
             <BrandLockup>
-                <BrandLogo src="/asset.svg" alt="App logo" />
+                <BrandLogo src="/logo.svg" alt="App logo" />
                 <span>Riverside</span>
             </BrandLockup>
 
