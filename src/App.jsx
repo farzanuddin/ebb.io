@@ -401,7 +401,7 @@ const MainPanel = styled.main`
   height: 100%;
   min-height: 0;
   overflow: visible;
-  padding: 0.4rem 0 0.4rem 0.4rem;
+  padding: 0.4rem;
 
   @media (max-width: 1100px) {
     height: auto;
