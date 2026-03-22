@@ -69,10 +69,11 @@ const Hero = styled.section`
   padding: clamp(2.2rem, 3vw, 3rem);
   border-radius: ${({ theme }) => theme.borderRadius.md};
   background-color: ${({ theme }) => theme.surface.elevated};
-  background-position: center top;
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-clip: padding-box;
+  background-origin: padding-box;
   border: 1px solid ${({ theme }) => theme.alpha.white06};
   overflow: hidden;
 
