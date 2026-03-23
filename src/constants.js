@@ -69,3 +69,5 @@ export const APP_COPY = {
 };
 
 export const SEARCH_MIN_CHARACTERS = 2;
+
+export const GITHUB_PAGE_URL = "https://github.com/farzanuddin";

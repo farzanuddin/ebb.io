@@ -1,11 +1,29 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { APP_COPY } from "../constants";
 import { MenuOutlined, SearchOutlined } from "@ant-design/icons";
 
+export const PHONE_MAX_WIDTH = 1100;
+
+export const useIsPhone = () => {
+  const [isPhone, setIsPhone] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.innerWidth <= PHONE_MAX_WIDTH;
+  });
+
+  useEffect(() => {
+    const onResize = () => setIsPhone(window.innerWidth <= PHONE_MAX_WIDTH);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  return isPhone;
+};
+
 export const TopBar = ({ placeholder, searchValue, onSearchChange, onToggleSidebar, rightActions }) => {
   const inputRef = useRef(null);
+  const isPhone = useIsPhone();
 
   return (
     <>
@@ -26,8 +44,13 @@ export const TopBar = ({ placeholder, searchValue, onSearchChange, onToggleSideb
             />
           </SearchSection>
         </LeftSection>
-        <RightActions>{rightActions}</RightActions>
+        {isPhone &&
+          <RightActions>{rightActions}</RightActions>
+        }
       </Bar>
+      {!isPhone &&
+        <RightActions>{rightActions}</RightActions>
+      }
     </>
   );
 };

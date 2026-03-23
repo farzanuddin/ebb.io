@@ -12,7 +12,7 @@ import {
   FolderOpenOutlined,
 } from "@ant-design/icons";
 import PropTypes from 'prop-types';
-import { APP_COPY } from "../constants";
+import { APP_COPY, GITHUB_PAGE_URL } from "../constants";
 
 const iconMap = {
   home: HomeFilled,
@@ -54,7 +54,6 @@ export const DashboardSidebar = ({ brand, primaryLinks, libraryLinks, onNavigate
     <Sidebar>
       <BrandLockup>
         <BrandLogo src="/logo.svg" alt={APP_COPY.appLogoAlt} />
-        <span>{brand}</span>
       </BrandLockup>
 
       <SidebarStack>
@@ -72,6 +71,8 @@ export const DashboardSidebar = ({ brand, primaryLinks, libraryLinks, onNavigate
           <span>{APP_COPY.logoutLabel}</span>
         </FooterButton>
       </FooterActions>
+
+      <FooterCredit />
     </Sidebar>
   );
 };
@@ -111,6 +112,7 @@ const Sidebar = styled.aside`
     padding: 2.4rem 1.6rem;
     border-radius: 0;
     border: none;
+    display: block;
   }
 `;
 
@@ -124,11 +126,14 @@ const BrandLockup = styled.div`
 `;
 
 const BrandLogo = styled.img`
-  width: 2.2rem;
   max-width: 100%;
   height: auto;
   object-fit: contain;
   display: block;
+
+  @media (max-width: 1100px) {
+    margin-bottom: 4rem;
+  }
 `;
 
 const SidebarStack = styled.div`
@@ -216,5 +221,34 @@ const FooterButton = styled.button`
 
   span {
     font-weight: 600;
+  }
+`;
+
+const FooterCredit = () => {
+  const currentYear = new Date().getFullYear();
+
+  return (
+    <CreditWrap>
+      <CreditText>
+        &copy; {currentYear} <a href={GITHUB_PAGE_URL} target="_blank" rel="noreferrer">Farzan Uddin</a>
+      </CreditText>
+    </CreditWrap>
+  );
+};
+
+const CreditWrap = styled.div`
+  margin-top: 0.6rem;
+  display: flex;
+  justify-content: center;
+`;
+
+const CreditText = styled.p`
+  margin: 0;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  color: ${({ theme }) => theme.text.muted};
+
+  a {
+    color: ${({ theme }) => theme.text.muted};
+    text-decoration: underline;
   }
 `;

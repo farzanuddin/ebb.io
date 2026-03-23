@@ -26,7 +26,6 @@ export const theme = {
     soft: "0 18px 32px rgba(8, 8, 17, 0.28)",
   },
   alpha: {
-    /* Consolidated alpha palette - reduced to a smaller, consistent set */
     white06: "rgba(255,255,255,0.06)",
     white12: "rgba(255,255,255,0.12)",
     white20: "rgba(255,255,255,0.2)",

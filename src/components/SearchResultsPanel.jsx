@@ -96,8 +96,6 @@ const Panel = styled.div`
   }
 `;
 
-/* PanelHeader removed per design: header text removed from search results */
-
 const PanelText = styled.p`
   display: inline-flex;
   align-items: center;
